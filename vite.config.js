@@ -18,8 +18,16 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'src/scripts/main.js'),
+        home: resolve(__dirname, 'src/scripts/home/home.js'),
+        global: resolve(__dirname, 'src/scripts/global/index.js'),
       },
-      preserveEntrySignatures: 'exports-only',
+      output: {
+        entryFileNames: '[name].js',
+        chunkFileNames: '[name]-[hash].js',
+        assetFileNames: '[name].[ext]',
+        format: 'es',
+        inlineDynamicImports: false,
+      },
       external: ['jquery'],
     },
   },

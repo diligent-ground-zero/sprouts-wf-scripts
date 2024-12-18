@@ -1,20 +1,12 @@
 import '../styles/global.css';
+import * as global from './global/index.js';
+import * as home from './home/home.js';
 
 const init = () => {
-  import('./global/index.js').then((module) => {
-    module.default();
-  });
-  // import('./global/index.js').then((module) => {
-  //   module.initSwipers();
-  //   module.initCustomVideoControls();
-  //   module.initHeaderListeners();
-  //   module.onMenuOpenListener();
-  // });
-
+  global.default();
+  
   if (window.location.pathname.endsWith('/')) {
-    import('./home/home.js').then((module) => {
-      module.default();
-    });
+    home.default();
   }
 };
 

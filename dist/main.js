@@ -1,0 +1,1 @@
+import{i as t}from"./global.js";import{h as e}from"./home.js";import"./ScrollTrigger-06fbf3d1.js";const o=()=>{t(),window.location.pathname.endsWith("/")&&e()};document.readyState==="loading"?document.addEventListener("DOMContentLoaded",o):o();
