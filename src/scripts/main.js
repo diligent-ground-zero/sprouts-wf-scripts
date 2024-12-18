@@ -1,5 +1,9 @@
+import '../styles/global.css';
 
 const init = () => {
+  import('./global/index.js').then((module) => {
+    module.default();
+  });
   // import('./global/index.js').then((module) => {
   //   module.initSwipers();
   //   module.initCustomVideoControls();
@@ -7,11 +11,11 @@ const init = () => {
   //   module.onMenuOpenListener();
   // });
 
-  // if (window.location.pathname.includes('linkedin-ads-lab')) {
-  //   import('./blog/blog.js').then((module) => {
-  //     module.initBlog();
-  //   });
-  // }
+  if (window.location.pathname.endsWith('/')) {
+    import('./home/home.js').then((module) => {
+      module.default();
+    });
+  }
 };
 
 if (document.readyState === 'loading') {

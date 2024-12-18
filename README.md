@@ -1,8 +1,6 @@
-# Tuned social Webflow page scripts & styles
+# Sprouts website scripts & styles
 
 This project includes scripts used to extend the default capabilities of Webflow. Also includes some decoupled styles used on the site.
-
-The Website staging link is available here: https://tuned-social-8336d7.webflow.io/
 
 **The project includes:**
 

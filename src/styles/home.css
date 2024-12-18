@@ -1,0 +1,27 @@
+[text-split] {
+  opacity: 0;
+}
+
+html.w-editor [text-split] {
+  opacity: 1;
+}
+
+.heading-3 {
+  display: block !important;
+  line-height: normal !important;
+}
+
+.heading-3 .word {
+  display: inline !important;
+  position: relative !important;
+  margin: 0 0.05em 0 0 !important;
+}
+
+.heading-3 .word:last-child {
+  margin-right: 0 !important;
+}
+
+.heading-3 .char {
+  display: inline !important;
+  position: relative !important;
+}

@@ -13,9 +13,12 @@
     "vite": "^4.4.0"
   },
   "dependencies": {
+    "@studio-freight/lenis": "^1.0.42",
     "eslint": "^8.44.0",
     "eslint-config-prettier": "^8.8.0",
+    "gsap": "^3.12.5",
     "prettier": "^3.0.0",
+    "split-type": "0.2.1",
     "swiper": "^11.1.9",
     "vite-plugin-eslint": "^1.8.1"
   }

@@ -197,6 +197,11 @@
     estree-walker "^2.0.1"
     picomatch "^2.2.2"
 
+"@studio-freight/lenis@^1.0.42":
+  version "1.0.42"
+  resolved "https://registry.npmjs.org/@studio-freight/lenis/-/lenis-1.0.42.tgz#031402beee5eede12649beb9a912abd1aa98f96a"
+  integrity sha512-HJAGf2DeM+BTvKzHv752z6Z7zy6bA643nZM7W88Ft9tnw2GsJSp6iJ+3cekjyMIWH+cloL2U9X82dKXgdU8kPg==
+
 "@types/eslint@^8.4.5":
   version "8.44.0"
   resolved "https://registry.npmjs.org/@types/eslint/-/eslint-8.44.0.tgz"
@@ -548,6 +553,11 @@ graphemer@^1.4.0:
   resolved "https://registry.npmjs.org/graphemer/-/graphemer-1.4.0.tgz"
   integrity sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==
 
+gsap@^3.12.5:
+  version "3.12.5"
+  resolved "https://registry.npmjs.org/gsap/-/gsap-3.12.5.tgz#136c02dad4c673b441bdb1ca00104bfcb4eae7f4"
+  integrity sha512-srBfnk4n+Oe/ZnMIOXt3gT605BX9x5+rh/prT2F1SsNJsU1XuMiP0E2aptW481OnonOGACZWBqseH5Z7csHxhQ==
+
 has-flag@^4.0.0:
   version "4.0.0"
   resolved "https://registry.npmjs.org/has-flag/-/has-flag-4.0.0.tgz"
@@ -813,6 +823,11 @@ source-map-js@^1.0.2:
   version "1.0.2"
   resolved "https://registry.npmjs.org/source-map-js/-/source-map-js-1.0.2.tgz"
   integrity sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==
+
+split-type@0.2.1:
+  version "0.2.1"
+  resolved "https://registry.npmjs.org/split-type/-/split-type-0.2.1.tgz#0d8a73d3288168016f087e5032b0a29c67d43bf9"
+  integrity sha512-bKv6qaTbFo3Kdq9Yubcx69WRi0hrhwIxP3fquzhqDWXy8JQ65nveM3Z8sQnCFQle6Dj6QLynHKVImBFiPkUozw==
 
 strip-ansi@^6.0.1:
   version "6.0.1"
