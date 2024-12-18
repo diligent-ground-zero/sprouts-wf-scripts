@@ -1,0 +1,22 @@
+{
+  "name": "mvpf-wf-globals",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint ./src && prettier ./src --write"
+  },
+  "devDependencies": {
+    "vite": "^4.4.0"
+  },
+  "dependencies": {
+    "eslint": "^8.44.0",
+    "eslint-config-prettier": "^8.8.0",
+    "prettier": "^3.0.0",
+    "swiper": "^11.1.9",
+    "vite-plugin-eslint": "^1.8.1"
+  }
+}
