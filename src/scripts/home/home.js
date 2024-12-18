@@ -1,8 +1,9 @@
 
 import '../../styles/home.css'
 import SplitType from 'split-type'
-import gsap from 'gsap'
+import { horizontalLoop } from '../global/infiniteScrollHelper'
 import ScrollTrigger from 'gsap/ScrollTrigger'
+import gsap from 'gsap'
 
 export default function() {
   return new HomeScripts();
@@ -11,9 +12,9 @@ export default function() {
 class HomeScripts {
   constructor(){
     gsap.registerPlugin(ScrollTrigger);
-
     this.initTrackTextAnimation()
     this.initStackingCards()
+    this.initInfiniteLogoLoop()
   }
 
   initTrackTextAnimation() {
@@ -85,5 +86,12 @@ class HomeScripts {
             boxShadow: "0px -49px 49px 0px rgba(0, 0, 0, 0.02)"
         });
     });
-}
+  }
+
+  initInfiniteLogoLoop(){
+    const boxes = gsap.utils.toArray(".splide_slide"),
+  loop = horizontalLoop(boxes, { paused: false, speed: 0.5 });
+  }
+
+  
 }
