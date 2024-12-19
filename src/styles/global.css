@@ -18,3 +18,41 @@ html.lenis {
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
 }
+
+.logo-carousel.splide {
+  -webkit-mask-image: linear-gradient(to right,
+      transparent,
+      black 15%,
+      black 85%,
+      transparent 100%);
+  mask-image: linear-gradient(to right,
+      transparent,
+      black 15%,
+      black 85%,
+      transparent 100%);
+}
+
+
+@media (hover: hover) and (pointer: fine) {
+  .custom-cursor {
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s ease-out, transform 0.2s ease-out;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: normal;
+    backdrop-filter: invert(1);
+    -webkit-backdrop-filter: invert(1);
+  }
+
+  .custom-cursor.hover {
+    transform: translate(-50%, -50%) scale(1.5);
+    backdrop-filter: invert(1) blur(2px);
+    -webkit-backdrop-filter: invert(1) blur(2px);
+  }
+}

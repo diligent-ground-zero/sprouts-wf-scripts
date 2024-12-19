@@ -1,12 +1,24 @@
 import '../styles/global.css';
-import * as global from './global/index.js';
-import * as home from './home/home.js';
-
+import ScrollTrigger from 'gsap/ScrollTrigger'
+import gsap from 'gsap'
 const init = () => {
-  global.default();
-  
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  import('./global/index.js').then((module) => {
+    module.default();
+  });
+
   if (window.location.pathname.endsWith('/')) {
-    home.default();
+    import('./home/home.js').then((module) => {
+      module.default();
+    });
+  }
+
+  if (window.location.pathname.endsWith('/creators')) {
+    import('./creators/creatorScripts.js').then((module) => {
+      module.default();
+    });
   }
 };
 

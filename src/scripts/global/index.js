@@ -1,15 +1,18 @@
 import Lenis from '@studio-freight/lenis';
 import gsap from 'gsap'
-import ScrollTrigger from 'gsap/ScrollTrigger'
+import { deviceDetection } from './deviceDetect';
+import { CustomCursor } from './customCursor';
 class GlobalScripts {
   constructor() {
     this.initLenis();
-    gsap.registerPlugin(ScrollTrigger);
     this.lastScrollTop = 0;
     this.isAnimating = false;
     this.debounceTimeout = null;
     this.ticking = false;
     this.initHeaderAnimation();
+    if (deviceDetection.isDesktop) {
+      new CustomCursor();
+    }
   }
 
   debounce(func, wait) {
@@ -42,14 +45,6 @@ class GlobalScripts {
     const header = document.querySelector('.nav_component');
     if (!header) return;
 
-    // Set initial states
-    // gsap.set(header, {
-    //   yPercent: 0,
-    //   position: 'fixed',
-    //   top: 0,
-    //   width: '100%'
-    // });
-
     const handleHeaderAnimation = (direction, currentScroll) => {
       if (this.isAnimating) return;
       this.isAnimating = true;
@@ -58,7 +53,9 @@ class GlobalScripts {
         // Scrolling down - hide header
         gsap.to(header, {
           yPercent: -100,
-          duration: 2.4,
+          duration: 1.2,
+          filter: 'blur(50px)',
+          opacity:0,
           ease: "power2.in",
           onComplete: () => {
             this.isAnimating = false;
@@ -68,8 +65,10 @@ class GlobalScripts {
         // Scrolling up - show header
         gsap.to(header, {
           yPercent: 0,
-          duration: 1.6,
-          ease: "power2.in",
+          duration: 1.2,
+          opacity:1,
+          filter: 'blur(0px)',
+          ease: "power2.out",
           onComplete: () => {
             this.isAnimating = false;
           }

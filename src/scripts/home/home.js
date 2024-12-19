@@ -11,7 +11,6 @@ export default function() {
 
 class HomeScripts {
   constructor(){
-    gsap.registerPlugin(ScrollTrigger);
     this.initTrackTextAnimation()
     this.initStackingCards()
     this.initInfiniteLogoLoop()
@@ -27,7 +26,7 @@ class HomeScripts {
   });
 
   // Initialize SplitType with minimal settings
-  let typeSplit = new SplitType("[text-split]", {
+  new SplitType("[text-split]", {
     types: "words",
     tagName: "span"
   });
@@ -37,21 +36,21 @@ class HomeScripts {
     let tl = gsap.timeline({
       scrollTrigger: {
         trigger: element,
-        // Start animation when element is 40% from the top of the viewport
-        start: "top 40%",
+        start: "top 50%",
         // End animation when element is 20% from the top
-        end: "top 20%",
+        end: "bottom",
         scrub: 1, // Smooth scrubbing effect
-        // markers: true, // Uncomment for debugging
-        toggleActions: "play none none reverse"
+        markers: true, // Uncomment for debugging
+        toggleActions: "play none none reverse",
+        pinSpacing:false
       }
     });
 
     tl.from(element.querySelectorAll(".word"), {
       opacity: 0.2,
-      duration: 0.2,
+      duration: 0.6,
       ease: "power2.out",
-      stagger: { each: 0.4 }
+      stagger: { each: 0.2 }
     });
   });
 
