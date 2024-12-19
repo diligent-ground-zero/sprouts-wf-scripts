@@ -1,1 +1,0 @@
-import{g as t}from"./index-7d9a9c74.js";function o(){return new s}class s{constructor(){this.animateCards()}animateCards(){const r=t.utils.toArray(".projects_cms_item");t.set(r,{opacity:0,y:50}),t.to(r,{opacity:1,y:0,duration:1.8,delay:.2,ease:"power2.out",stagger:.5,scrollTrigger:{trigger:".projects_cms_list",start:"top 50%",end:"top 30%"}})}}export{o as default};
