@@ -8,10 +8,8 @@ import creatorScripts from './creators/creatorScripts.js';
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
   
-  // Initialize global scripts
   globalScripts();
 
-  // Initialize page-specific scripts based on pathname
   if (window.location.pathname.endsWith('/')) {
     homeScripts();
   }

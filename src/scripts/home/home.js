@@ -40,7 +40,7 @@ class HomeScripts {
         // End animation when element is 20% from the top
         end: "bottom",
         scrub: 1, // Smooth scrubbing effect
-        markers: true, // Uncomment for debugging
+        //markers: true, // Uncomment for debugging
         toggleActions: "play none none reverse",
         pinSpacing:false
       }
