@@ -2,7 +2,6 @@
 import '../../styles/home.css'
 import SplitType from 'split-type'
 import { horizontalLoop } from '../global/infiniteScrollHelper'
-import ScrollTrigger from 'gsap/ScrollTrigger'
 import gsap from 'gsap'
 
 export default function() {

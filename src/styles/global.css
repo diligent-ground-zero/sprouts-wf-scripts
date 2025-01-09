@@ -32,7 +32,6 @@ html.lenis {
       transparent 100%);
 }
 
-
 @media (hover: hover) and (pointer: fine) {
   .custom-cursor {
     width: 40px;
@@ -54,5 +53,77 @@ html.lenis {
     transform: translate(-50%, -50%) scale(1.5);
     backdrop-filter: invert(1) blur(2px);
     -webkit-backdrop-filter: invert(1) blur(2px);
+  }
+}
+
+.team_wrap .team_contain .section_team_grid_wrap .section_team_grid_item .section_team_grid_item_text_wrap_hidden_wrap {
+  transform: translateY(-60px);
+}
+
+.other_creators_carousel_contain_inner {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  gap: 3rem;
+  padding: 1rem;
+  cursor: grab;
+}
+
+.feed_grid {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  gap: 3rem;
+  padding: 1rem;
+  cursor: grab;
+}
+
+.feed_grid::-webkit-scrollbar {
+  display: none;
+}
+
+.feed_grid_item {
+  scroll-snap-align: start;
+  flex: 0 0 85%;
+  min-width: 280px;
+}
+
+.feed_grid:active {
+  cursor: grabbing;
+}
+
+.preloader {
+  display: flex;
+}
+
+@media (width > 768px) {
+
+  .feed_grid {
+    display: grid;
+    cursor: default;
+  }
+
+  .feed_grid_item:nth-child(n + 1):nth-child(-n + 3):nth-child(odd),
+  .feed_grid_item:nth-child(n + 6):nth-child(-n + 8):nth-child(odd) {
+    margin-top: 150px;
+
+  }
+
+  .feed_grid_item:nth-child(5) {
+    margin-top: -150px;
+  }
+
+  .team_wrap .team_contain .section_team_grid_wrap .section_team_grid_item .section_team_grid_item_text_wrap_hidden_wrap {
+    transform: translateY(20px);
+  }
+
+
+  .team_wrap .team_contain .section_team_grid_wrap .section_team_grid_item:hover .section_team_grid_item_text_wrap_hidden_wrap {
+    transform: translateY(-60px);
   }
 }
