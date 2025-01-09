@@ -24,11 +24,11 @@ class GlobalScripts {
     let counter = {
       value: 0
     };
-    let loaderDuration = 10;
+    let loaderDuration = 3;
 
     // If not a first time visit in this tab
     if (sessionStorage.getItem("visited") !== null) {
-      loaderDuration = 2;
+      loaderDuration = 1;
       counter = {
         value: 75
       };

@@ -60,18 +60,8 @@ html.lenis {
   transform: translateY(-60px);
 }
 
+.feed_grid,
 .other_creators_carousel_contain_inner {
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  gap: 3rem;
-  padding: 1rem;
-  cursor: grab;
-}
-
-.feed_grid {
   display: flex;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
@@ -88,7 +78,7 @@ html.lenis {
 }
 
 .feed_grid_item {
-  scroll-snap-align: start;
+  scroll-snap-align: center;
   flex: 0 0 85%;
   min-width: 280px;
 }
@@ -99,6 +89,16 @@ html.lenis {
 
 .preloader {
   display: flex;
+}
+
+.other_creators_carousel_contain,
+.feed_grid {
+  mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+}
+
+.other_creators_carousel_contain>* {
+  scroll-snap-align: start;
 }
 
 @media (width > 768px) {
