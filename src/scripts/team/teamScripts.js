@@ -1,17 +1,13 @@
-import gsap from 'gsap'
+import gsap from 'gsap';
 
-export default function() {
+export default function () {
   return new TeamScripts();
 }
 
 class TeamScripts {
-
-  constructor(){
+  constructor() {
     this.initTeamScripts();
   }
 
-  initTeamScripts(){
-
-  }
+  initTeamScripts() {}
 }
-

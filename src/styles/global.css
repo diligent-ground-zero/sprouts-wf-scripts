@@ -19,17 +19,17 @@ html.lenis {
   pointer-events: none;
 }
 
+.global_nav_contain {
+  pointer-events: none;
+}
+
+.global_nav_contain > * {
+  pointer-events: none;
+}
+
 .logo-carousel.splide {
-  -webkit-mask-image: linear-gradient(to right,
-      transparent,
-      black 15%,
-      black 85%,
-      transparent 100%);
-  mask-image: linear-gradient(to right,
-      transparent,
-      black 15%,
-      black 85%,
-      transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent 100%);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -42,7 +42,9 @@ html.lenis {
     pointer-events: none;
     z-index: 999;
     opacity: 0;
-    transition: opacity 0.3s ease-out, transform 0.2s ease-out;
+    transition:
+      opacity 0.3s ease-out,
+      transform 0.2s ease-out;
     transform: translate(-50%, -50%);
     mix-blend-mode: normal;
     backdrop-filter: invert(1);
@@ -97,12 +99,11 @@ html.lenis {
   -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
 }
 
-.other_creators_carousel_contain>* {
+.other_creators_carousel_contain > * {
   scroll-snap-align: start;
 }
 
 @media (width > 768px) {
-
   .feed_grid {
     display: grid;
     cursor: default;
@@ -111,19 +112,25 @@ html.lenis {
   .feed_grid_item:nth-child(n + 1):nth-child(-n + 3):nth-child(odd),
   .feed_grid_item:nth-child(n + 6):nth-child(-n + 8):nth-child(odd) {
     margin-top: 150px;
-
   }
 
   .feed_grid_item:nth-child(5) {
     margin-top: -150px;
   }
 
-  .team_wrap .team_contain .section_team_grid_wrap .section_team_grid_item .section_team_grid_item_text_wrap_hidden_wrap {
+  .team_wrap
+    .team_contain
+    .section_team_grid_wrap
+    .section_team_grid_item
+    .section_team_grid_item_text_wrap_hidden_wrap {
     transform: translateY(20px);
   }
 
-
-  .team_wrap .team_contain .section_team_grid_wrap .section_team_grid_item:hover .section_team_grid_item_text_wrap_hidden_wrap {
+  .team_wrap
+    .team_contain
+    .section_team_grid_wrap
+    .section_team_grid_item:hover
+    .section_team_grid_item_text_wrap_hidden_wrap {
     transform: translateY(-60px);
   }
 }

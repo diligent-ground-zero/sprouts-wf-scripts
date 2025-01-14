@@ -1,17 +1,16 @@
+import gsap from 'gsap';
 
-import gsap from 'gsap'
-
-export default function() {
+export default function () {
   return new CreatorSingleScripts();
 }
 
 class CreatorSingleScripts {
-  constructor(){
-    this.creatorVideoCars()
+  constructor() {
+    this.creatorVideoCars();
   }
 
   creatorVideoCars() {
-    console.log('creatorVideoCars')
+    console.log('creatorVideoCars');
     // gsap.utils.toArray(".feed_grid_item").forEach(function(item) {
     //     gsap.to(item, {
     //       y: () => item.offsetHeight + 5,
@@ -24,9 +23,7 @@ class CreatorSingleScripts {
     //         markers: true,
     //         invalidateOnRefresh: true
     //       },
-    //     }); 
+    //     });
     // });
   }
-
-
 }

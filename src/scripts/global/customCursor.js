@@ -5,20 +5,20 @@ export class CustomCursor {
   constructor() {
     // Only initialize on desktop devices
     if (!deviceDetection.isDesktop) return;
-    
+
     // Create cursor element
     this.createCursorElement();
-    
     this.cursor = document.querySelector('.custom-cursor');
     this.links = document.querySelectorAll('a, button, input, textarea, [role="button"]');
+    this.hideCursorElements = document.querySelectorAll('[data-hide-cursor]');
     this.isVisible = false;
     this.cursorPos = { x: 0, y: 0 };
     this.targetPos = { x: 0, y: 0 };
-    
+
     this.render = this.render.bind(this);
 
     if (!this.cursor) return;
-    
+
     this.init();
   }
 
@@ -33,7 +33,7 @@ export class CustomCursor {
   init() {
     // Initial cursor setup
     this.cursor.style.opacity = '0';
-    
+
     // Mouse move handler with lerp smoothing
     document.addEventListener('mousemove', (e) => {
       if (!this.isVisible) {
@@ -41,10 +41,10 @@ export class CustomCursor {
         gsap.to(this.cursor, {
           opacity: 1,
           duration: 0.3,
-          ease: 'power2.out'
+          ease: 'power2.out',
         });
       }
-      
+
       this.targetPos.x = e.clientX;
       this.targetPos.y = e.clientY;
     });
@@ -55,27 +55,45 @@ export class CustomCursor {
       gsap.to(this.cursor, {
         opacity: 0,
         duration: 0.3,
-        ease: 'power2.out'
+        ease: 'power2.out',
       });
     });
 
-    // Add hover effect for interactive elements
-    this.links.forEach(link => {
-      link.addEventListener('mouseenter', () => {
+    this.links.forEach((link) => {
+      if (!link.hasAttribute('data-hide-cursor')) {
+        link.addEventListener('mouseenter', () => {
+          gsap.to(this.cursor, {
+            scale: 3,
+            duration: 0.3,
+            ease: 'power2.out',
+          });
+        });
+
+        link.addEventListener('mouseleave', () => {
+          gsap.to(this.cursor, {
+            scale: 1,
+            duration: 0.3,
+            ease: 'power2.out',
+          });
+        });
+      }
+    });
+
+    // Handle elements with data-hide-cursor
+    this.hideCursorElements.forEach((element) => {
+      element.addEventListener('mouseenter', () => {
         gsap.to(this.cursor, {
-          scale: 3,
+          opacity: 0,
           duration: 0.3,
           ease: 'power2.out',
-          // background: 'var(--swatch--dark)'
         });
       });
-      
-      link.addEventListener('mouseleave', () => {
+
+      element.addEventListener('mouseleave', () => {
         gsap.to(this.cursor, {
-          scale: 1,
+          opacity: 1,
           duration: 0.3,
           ease: 'power2.out',
-          // background: 'var(--swatch--dark)'
         });
       });
     });
@@ -87,16 +105,16 @@ export class CustomCursor {
   render() {
     // Smooth interpolation
     const lerp = (start, end, factor) => start + (end - start) * factor;
-    
+
     this.cursorPos.x = lerp(this.cursorPos.x, this.targetPos.x, 0.2);
     this.cursorPos.y = lerp(this.cursorPos.y, this.targetPos.y, 0.2);
-    
+
     gsap.set(this.cursor, {
       x: this.cursorPos.x,
       y: this.cursorPos.y,
-      force3D: true
+      force3D: true,
     });
-    
+
     requestAnimationFrame(this.render);
   }
 }

@@ -7,9 +7,12 @@ import homeScripts from './home/home.js';
 import creatorScripts from './creators/creatorScripts.js';
 import teamScripts from './team/teamScripts.js';
 import creatorSingleScripts from './creatorsSingle/creatorSingle.js';
+import Flip from 'gsap/Flip';
+
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
   gsap.registerPlugin(CustomEase);
+  gsap.registerPlugin(Flip);
   globalScripts();
 
   if (window.location.pathname.endsWith('/')) {
