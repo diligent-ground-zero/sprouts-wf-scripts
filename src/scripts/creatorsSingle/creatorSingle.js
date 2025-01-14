@@ -1,4 +1,3 @@
-import gsap from 'gsap';
 
 export default function () {
   return new CreatorSingleScripts();
@@ -6,24 +5,42 @@ export default function () {
 
 class CreatorSingleScripts {
   constructor() {
-    this.creatorVideoCars();
+    this.checkImagesAndInitDialog();
   }
 
-  creatorVideoCars() {
-    console.log('creatorVideoCars');
-    // gsap.utils.toArray(".feed_grid_item").forEach(function(item) {
-    //     gsap.to(item, {
-    //       y: () => item.offsetHeight + 5,
-    //       ease: "none",
-    //       scrollTrigger: {
-    //         start: "top 50%",
-    //         trigger: '.feed_grid',
-    //         scrub: true,
-    //         pin: false,
-    //         markers: true,
-    //         invalidateOnRefresh: true
-    //       },
-    //     });
-    // });
+  checkImagesAndInitDialog() {
+    const desktopImage = document.querySelector('.creators_dialog_form_image_desktop');
+    const mobileImage = document.querySelector('.creators_dialog_form_image_mobile');
+    
+    if (this.areImagesEmpty(desktopImage, mobileImage)) {
+      this.hideDialogOpenButton();
+    } else {
+      this.creatorDemoDialog();
+    }
+  }
+
+  areImagesEmpty(desktopImage, mobileImage) {
+    const isDesktopEmpty = !desktopImage || !desktopImage.getAttribute('src');
+    const isMobileEmpty = !mobileImage || !mobileImage.getAttribute('src');
+    return isDesktopEmpty && isMobileEmpty;
+  }
+
+  creatorDemoDialog() {
+    const demoButton = document.querySelector('[data-creator-demos-button]');
+
+    if (demoButton) {
+      demoButton.addEventListener('click', () => {
+        const modal = document.querySelector('.creators_dialog_wrap').children[0];
+        if (modal) {
+          modal.showModal();
+        }
+      });
+    }
+  }
+  hideDialogOpenButton() {
+    const demoButton = document.querySelector('[data-creator-demos-button]');
+    if (demoButton) {
+      demoButton.style.display = 'none';
+    }
   }
 }
