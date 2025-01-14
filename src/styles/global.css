@@ -23,7 +23,7 @@ html.lenis {
   pointer-events: none;
 }
 
-.global_nav_contain > * {
+.global_nav_contain>* {
   pointer-events: none;
 }
 
@@ -99,11 +99,32 @@ html.lenis {
   -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
 }
 
-.other_creators_carousel_contain > * {
+.other_creators_carousel_contain>* {
   scroll-snap-align: start;
 }
 
+.global_nav .global_nav_contain_logo_wrap {
+  transition:
+    opacity 0.8s ease-out 0.2s,
+    filter 0.8s ease-out 0.2s;
+}
+
+.global_nav.visible .global_nav_contain_logo_wrap {
+  opacity: 0;
+  filter: blur(4px);
+}
+
 @media (width > 768px) {
+
+  .global_nav .global_nav_contain_logo_wrap {
+    transition: none;
+  }
+
+  .global_nav.visible .global_nav_contain_logo_wrap {
+    opacity: 1;
+    filter: blur(0px);
+  }
+
   .feed_grid {
     display: grid;
     cursor: default;
@@ -118,19 +139,29 @@ html.lenis {
     margin-top: -150px;
   }
 
-  .team_wrap
-    .team_contain
-    .section_team_grid_wrap
-    .section_team_grid_item
-    .section_team_grid_item_text_wrap_hidden_wrap {
+  .team_wrap .team_contain .section_team_grid_wrap .section_team_grid_item .section_team_grid_item_text_wrap_hidden_wrap {
     transform: translateY(20px);
   }
 
-  .team_wrap
-    .team_contain
-    .section_team_grid_wrap
-    .section_team_grid_item:hover
-    .section_team_grid_item_text_wrap_hidden_wrap {
+  .team_wrap .team_contain .section_team_grid_wrap .section_team_grid_item:hover .section_team_grid_item_text_wrap_hidden_wrap {
     transform: translateY(-60px);
+  }
+}
+
+@media (width >=992px) {
+  .nav_links_link.is-desktop.w--current {
+    position: relative;
+  }
+
+  .nav_links_link.is-desktop.w--current::before {
+    content: '';
+    position: absolute;
+    left: -0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    background-color: currentColor;
+    border-radius: 50%;
   }
 }

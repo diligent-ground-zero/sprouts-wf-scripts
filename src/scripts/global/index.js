@@ -75,6 +75,16 @@ class GlobalScripts {
       touchMultiplier: 2,
     });
 
+    this.lenis.on('scroll', ({ scroll }) => {
+      const logo = document.querySelector('.global_nav');
+      if (scroll > 96) {
+        logo.classList.add('visible');
+      } else {
+        logo.classList.remove('visible');
+      }
+    });
+
+    
     this.raf(this.time);
   }
 
@@ -84,6 +94,7 @@ class GlobalScripts {
   }
 
   initMobileMenu() {
+
     let hamburgerEl = document.querySelector('.global_nav_contain_hamburger_wrap');
     let navLineEl = document.querySelectorAll('.global_nav_contain_hamburger_line');
     let menuContainEl = document.querySelector('.global_nav_flip');
@@ -91,6 +102,16 @@ class GlobalScripts {
     let menuWrapEl = document.querySelector('.global_nav_wrap');
     let menuBaseEl = document.querySelector('.global_nav_bg');
     let menuLinkEl = menuWrapEl.querySelectorAll('.nav_links_text');
+
+    hamburgerEl.setAttribute('role', 'button');
+    hamburgerEl.setAttribute('aria-expanded', 'false');
+    hamburgerEl.setAttribute('aria-label', 'Toggle menu');
+    hamburgerEl.setAttribute('tabindex', '0');
+    
+    menuWrapEl.setAttribute('role', 'navigation');
+    menuWrapEl.setAttribute('aria-label', 'Mobile navigation');
+    
+    menuWrapEl.setAttribute('aria-hidden', 'true');
 
     let flipDuration = 0.6;
 
@@ -112,6 +133,7 @@ class GlobalScripts {
       ease: 'none',
       onStart: () => {
         flip(true);
+        menuWrapEl.setAttribute('aria-hidden', 'false');
       },
     });
     tl.to(navLineEl[0], { y: 4, rotate: 45, duration: flipDuration }, '<');
@@ -123,6 +145,7 @@ class GlobalScripts {
       stagger: { amount: 0.4 },
       onReverseComplete: () => {
         flip(false);
+        menuWrapEl.setAttribute('aria-hidden', 'true');
       },
     });
 
@@ -131,9 +154,11 @@ class GlobalScripts {
         if (open) {
           tl.play();
           hamburgerEl.classList.add('nav-open');
+          hamburgerEl.setAttribute('aria-expanded', 'true');
         } else {
           tl.reverse();
           hamburgerEl.classList.remove('nav-open');
+          hamburgerEl.setAttribute('aria-expanded', 'false');
         }
       }
     }
