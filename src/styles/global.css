@@ -32,7 +32,7 @@ html.lenis {
 }
 
 .global_cookie_modal .consent-dialog-container .dialog-overlay {
-  /* background-color: var(--swatch--dark-faded); */
+  background-color: #5851544a;
   /* backdrop-filter: blur(7.5px);
   -webkit-backdrop-filter: blur(7.5px); */
   position: fixed;
