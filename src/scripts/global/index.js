@@ -14,13 +14,36 @@ class GlobalScripts {
     this.ticking = false;
     this.initPreloader();
 
+    
     if (deviceDetection.isMobile || deviceDetection.isTablet) {
       this.initMobileMenu();
     }
 
     if (deviceDetection.isDesktop) {
+      this.initGlobalAnimations();
       new CustomCursor();
     }
+  }
+
+  initGlobalAnimations() {
+    const footerItems = gsap.utils.toArray('.about_us_footer_grid > h3');
+    gsap.set('.about_us_footer_grid', { overflow: 'hidden' });
+    const tl = gsap.timeline();
+    footerItems.forEach((item,index) => {
+      gsap.set(item, { y: 50 , opacity: 0 });
+      gsap.to(item, {
+        y: 1,
+        opacity: 1,
+        duration: 2,
+        delay: 1.6 * index,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: item,
+          start: 'top 85%',
+          // markers: true,
+        }
+      });
+    });
   }
 
   initCookieConsent() {

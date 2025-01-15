@@ -263,7 +263,7 @@ dialog::backdrop {
 .about_us_footer_grid h3.u-color-sprouts.u-text-style-h2-footer {
   margin: 0;
   display: flex;
-  font-size: 27cqi;
+  font-size: 26.5cqi;
   letter-spacing: 0.01em;
   line-height: 0.9em;
 }
@@ -320,7 +320,7 @@ dialog::backdrop {
   }
 
   .about_us_footer_grid h3.u-color-sprouts.u-text-style-h2-footer {
-    font-size: 13.2cqi;
+    font-size: 13cqi;
   }
 
   .global_nav .global_nav_contain_logo_wrap {
