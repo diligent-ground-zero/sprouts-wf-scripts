@@ -148,9 +148,9 @@ dialog::backdrop {
   animation: backdrop-fade 0.8s ease-out forwards;
 }
 
-.custom_text_wrap {
+/* .custom_text_wrap {
   overflow: hidden;
-}
+} */
 
 @keyframes backdrop-fade {
   from {
