@@ -29,7 +29,6 @@ class HomeScripts {
       text: document.querySelectorAll(`${selector} .hero_heading_text`)
     }));
 
-
   
     // Set initial states
     rows.forEach(row => {
