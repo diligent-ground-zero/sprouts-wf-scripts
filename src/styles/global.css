@@ -33,18 +33,11 @@ html.lenis {
 
 .global_cookie_modal .consent-dialog-container .dialog-overlay {
   background-color: #5851544a;
-  /* backdrop-filter: blur(7.5px);
-  -webkit-backdrop-filter: blur(7.5px); */
   position: fixed;
-  /* 1 */
   top: 0;
-  /* 1 */
   right: 0;
-  /* 1 */
   bottom: 0;
-  /* 1 */
   left: 0;
-  /* 1 */
   z-index: 9999;
 }
 
