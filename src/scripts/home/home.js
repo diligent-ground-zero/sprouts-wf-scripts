@@ -33,7 +33,7 @@ class HomeScripts {
   
     // Set initial states
     rows.forEach(row => {
-      gsap.set(row.container, { overflow: 'hidden' });
+      // gsap.set(row.container, { overflow: 'hidden' });
       // gsap.set(row.image, { scale: 0.5, opacity:0 });
       // row.text.forEach(text => {
       //   gsap.set(text, { opacity: 0,y:50 });
