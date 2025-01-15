@@ -217,8 +217,10 @@ class GlobalScripts {
         menuWrapEl.setAttribute('aria-hidden', 'false');
       },
     });
-    tl.to(navLineEl[0], { y: 4, rotate: 45, duration: flipDuration }, '<');
-    tl.to(navLineEl[1], { y: -4, rotate: -45, duration: flipDuration }, '<');
+    // gsap.set(navLineEl[0], { originY: 0, originX: 0 });
+    // gsap.set(navLineEl[1], { originY: 0, originX: 0 });
+    tl.to(navLineEl[0], { y: 4, rotate: 45, duration: flipDuration, scale:0.9 }, '<');
+    tl.to(navLineEl[1], { y: -4, rotate: -45, duration: flipDuration, scale:0.9 }, '<');
     tl.from(menuLinkEl, {
       opacity: 0,
       yPercent: 50,

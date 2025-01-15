@@ -1,6 +1,5 @@
 import '../../styles/home.css';
 import SplitType from 'split-type';
-import { horizontalLoop } from '../global/infiniteScrollHelper';
 import gsap from 'gsap';
 export default function () {
   return new HomeScripts();
@@ -148,7 +147,12 @@ class HomeScripts {
   }
 
   initInfiniteLogoLoop() {
-    const boxes = gsap.utils.toArray('.splide_slide')
-    horizontalLoop(boxes, { paused: false, speed: 0.5, repeat: -1 });
+    const boxes = document.querySelector('.splide_list')
+    const boxesArray = Array.from(boxes.children)
+    boxesArray.forEach((item) => {
+      const duplicatedItem = item.cloneNode(true);
+      duplicatedItem.setAttribute("aria-hidden", true);
+      boxes.appendChild(duplicatedItem);
+    });
   }
 }
