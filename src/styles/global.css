@@ -190,6 +190,18 @@ dialog::backdrop {
   display: none;
 }
 
+.about_us_footer_grid {
+  container-type: inline-size;
+}
+
+.about_us_footer_grid h3.u-color-sprouts.u-text-style-h2-footer {
+  margin: 0;
+  display: flex;
+  font-size: 27cqi;
+  letter-spacing: 0.01em;
+  line-height: 0.9em;
+}
+
 @media (width > 768px) {
 
   .global_nav.visible .global_nav_contain_logo_wrap {
@@ -220,7 +232,9 @@ dialog::backdrop {
 
 @media (width >=992px) {
 
-
+  .about_us_footer_grid h3.u-color-sprouts.u-text-style-h2-footer {
+    font-size: 13.2cqi;
+  }
 
   .global_nav .global_nav_contain_logo_wrap {
     transition: none;
