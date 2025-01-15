@@ -77,6 +77,9 @@ class GlobalScripts {
   }
 
   initPreloader() {
+    const lenis = this.lenis;
+    const initCookieConsent = this.initCookieConsent;
+    lenis.stop();
     let customEase =
       'M0,0,C0,0,0.13,0.34,0.238,0.442,0.305,0.506,0.322,0.514,0.396,0.54,0.478,0.568,0.468,0.56,0.522,0.584,0.572,0.606,0.61,0.719,0.714,0.826,0.798,0.912,1,1,1,1';
     let counter = {
@@ -99,6 +102,8 @@ class GlobalScripts {
     }
     function endLoaderAnimation() {
       $('.preloader_trigger').click();
+      lenis.start();
+      initCookieConsent();
     }
     let tl = gsap.timeline({
       onComplete: endLoaderAnimation,
@@ -106,9 +111,6 @@ class GlobalScripts {
     tl.to(counter, {
       value: 100,
       onUpdate: updateLoaderText,
-      onComplete: () => {
-        this.initCookieConsent();
-      },
       duration: loaderDuration,
       ease: CustomEase.create('custom', customEase),
     });
@@ -150,7 +152,6 @@ class GlobalScripts {
   }
 
   initMobileMenu() {
-
     let hamburgerEl = document.querySelector('.global_nav_contain_hamburger_wrap');
     let navLineEl = document.querySelectorAll('.global_nav_contain_hamburger_line');
     let menuContainEl = document.querySelector('.global_nav_flip');
@@ -169,7 +170,7 @@ class GlobalScripts {
     
     menuWrapEl.setAttribute('aria-hidden', 'true');
 
-    let flipDuration = 0.6;
+    let flipDuration = 0.4;
 
     function flip(forwards) {
       let state = Flip.getState(flipItemEl);
@@ -188,6 +189,7 @@ class GlobalScripts {
       duration: flipDuration,
       ease: 'none',
       onStart: () => {
+        this.lenis.stop();
         flip(true);
         menuWrapEl.setAttribute('aria-hidden', 'false');
       },
@@ -200,6 +202,7 @@ class GlobalScripts {
       duration: 0.4,
       stagger: { amount: 0.4 },
       onReverseComplete: () => {
+        this.lenis.start();
         flip(false);
         menuWrapEl.setAttribute('aria-hidden', 'true');
       },

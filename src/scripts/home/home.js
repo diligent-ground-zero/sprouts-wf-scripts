@@ -2,7 +2,6 @@ import '../../styles/home.css';
 import SplitType from 'split-type';
 import { horizontalLoop } from '../global/infiniteScrollHelper';
 import gsap from 'gsap';
-import CustomEase from 'gsap/CustomEase';
 export default function () {
   return new HomeScripts();
 }
@@ -149,7 +148,7 @@ class HomeScripts {
   }
 
   initInfiniteLogoLoop() {
-    const boxes = gsap.utils.toArray('.splide_slide'),
-      loop = horizontalLoop(boxes, { paused: false, speed: 0.5 });
+    const boxes = gsap.utils.toArray('.splide_slide')
+    horizontalLoop(boxes, { paused: false, speed: 0.5, repeat: -1 });
   }
 }

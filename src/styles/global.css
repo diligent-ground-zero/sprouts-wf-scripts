@@ -87,9 +87,8 @@ html.lenis {
 
 .global_cookie_modal .consent-dialog-container .dialog-content .accept-buttons button:first-child {
   background-color: var(--swatch--dark);
-  color: var(--swatch--light);
+  color: white;
 }
-
 
 .global_cookie_modal .consent-dialog-container .dialog-content .accept-buttons button:last-child {
   border: unset;
@@ -167,8 +166,7 @@ html.lenis {
 /* .other_creators_carousel_contain>* {
   scroll-snap-align: center;
 } */
-
-.global_nav .global_nav_contain_logo_wrap {
+.global_cookie_modal .consent-dialog-container .dialog-content .accept-buttons button:first-child .global_nav .global_nav_contain_logo_wrap {
   transition:
     opacity 0.8s ease-out 0.2s,
     filter 0.8s ease-out 0.2s;
