@@ -32,9 +32,9 @@ html.lenis {
 }
 
 .global_cookie_modal .consent-dialog-container .dialog-overlay {
-  background-color: var(--swatch--dark-faded);
-  backdrop-filter: blur(7.5px);
-  -webkit-backdrop-filter: blur(7.5px);
+  /* background-color: var(--swatch--dark-faded); */
+  /* backdrop-filter: blur(7.5px);
+  -webkit-backdrop-filter: blur(7.5px); */
   position: fixed;
   /* 1 */
   top: 0;
@@ -46,6 +46,54 @@ html.lenis {
   left: 0;
   /* 1 */
   z-index: 9999;
+}
+
+.global_cookie_modal .consent-dialog-container .dialog-content {
+  background-color: white;
+  border-radius: 20px;
+  z-index: 10000;
+  bottom: 15px;
+  left: 15px;
+  right: 15px;
+  position: fixed;
+  padding: 2rem;
+  max-width: 100%;
+}
+
+.global_cookie_modal .consent-dialog-container .dialog-content h1 {
+  font-size: 3.5rem;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.global_cookie_modal .consent-dialog-container .dialog-content .accept-buttons {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1rem;
+}
+
+.global_cookie_modal .consent-dialog-container .dialog-content .accept-buttons button {
+  padding: 0.5rem 1.5rem;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  font-weight: 700;
+  text-align: center;
+  border: 2px solid var(--swatch--dark);
+}
+
+.global_cookie_modal .consent-dialog-container .dialog-content .accept-buttons button:first-child {
+  background-color: var(--swatch--dark);
+  color: var(--swatch--light);
+}
+
+
+.global_cookie_modal .consent-dialog-container .dialog-content .accept-buttons button:last-child {
+  border: unset;
+  padding: 0.5rem 1rem;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -223,6 +271,11 @@ dialog::backdrop {
 }
 
 @media (width > 768px) {
+  .global_cookie_modal .consent-dialog-container .dialog-content .accept-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+  }
 
   .global_nav.visible .global_nav_contain_logo_wrap {
     opacity: 0;
@@ -251,6 +304,18 @@ dialog::backdrop {
 }
 
 @media (width >=992px) {
+
+  .global_cookie_modal .consent-dialog-container .dialog-content {
+    padding: 3rem;
+    max-width: 52rem;
+    border-radius: 25px;
+  }
+
+  .global_cookie_modal .consent-dialog-container .dialog-content h1 {
+    font-size: 5rem;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+  }
 
   section[data-first-section-after-header] {
     margin-top: -10.5rem !important;

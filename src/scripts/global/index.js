@@ -13,7 +13,6 @@ class GlobalScripts {
     this.debounceTimeout = null;
     this.ticking = false;
     this.initPreloader();
-    this.initCookieConsent();
 
     if (deviceDetection.isMobile || deviceDetection.isTablet) {
       this.initMobileMenu();
@@ -28,7 +27,27 @@ class GlobalScripts {
     if (localStorage.getItem('cookieConsent')) return;
 
     const consentBanner = document.querySelector('.global_cookie_modal');
+    const buttonWrap = consentBanner.querySelector('.accept-buttons');
     consentBanner.style = 'display: block;';
+    
+    const closeButton = document.createElement('button');
+    closeButton.textContent = 'Decline all';
+
+    closeButton.addEventListener('click', () => {
+      localStorage.setItem('cookieConsent', 'declide');
+      consentBanner.remove();
+    });
+    buttonWrap.appendChild(closeButton);
+
+    consentBanner.querySelector('button:first-child').addEventListener('click', () => {
+      localStorage.setItem('cookieConsent', 'all');
+      consentBanner.remove();
+    });
+
+    consentBanner.querySelector('[data-cc-accept="[]"]').addEventListener('click', () => {
+      localStorage.setItem('cookieConsent', 'necessary');
+      consentBanner.remove();
+    });
 
     // document.getElementById('acceptAllCookies').addEventListener('click', () => {
     //   this.setCookieConsent('all');
@@ -87,6 +106,9 @@ class GlobalScripts {
     tl.to(counter, {
       value: 100,
       onUpdate: updateLoaderText,
+      onComplete: () => {
+        this.initCookieConsent();
+      },
       duration: loaderDuration,
       ease: CustomEase.create('custom', customEase),
     });
@@ -118,7 +140,6 @@ class GlobalScripts {
         logo.classList.remove('visible');
       }
     });
-
     
     this.raf(this.time);
   }
