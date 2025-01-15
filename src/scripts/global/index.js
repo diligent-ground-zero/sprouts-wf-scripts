@@ -4,6 +4,7 @@ import { deviceDetection } from './deviceDetect';
 import { CustomCursor } from './customCursor';
 import CustomEase from 'gsap/CustomEase';
 import Flip from 'gsap/Flip';
+
 class GlobalScripts {
   constructor() {
     this.initLenis();
@@ -12,14 +13,48 @@ class GlobalScripts {
     this.debounceTimeout = null;
     this.ticking = false;
     this.initPreloader();
+    this.initCookieConsent();
 
-    if (deviceDetection.isMobile) {
+    if (deviceDetection.isMobile || deviceDetection.isTablet) {
       this.initMobileMenu();
     }
 
     if (deviceDetection.isDesktop) {
       new CustomCursor();
     }
+  }
+
+  initCookieConsent() {
+    if (localStorage.getItem('cookieConsent')) return;
+
+    const consentBanner = document.querySelector('.global_cookie_modal');
+    consentBanner.style = 'display: block;';
+
+    // document.getElementById('acceptAllCookies').addEventListener('click', () => {
+    //   this.setCookieConsent('all');
+    //   consentBanner.remove();
+    // });
+  
+    // document.getElementById('acceptNecessaryCookies').addEventListener('click', () => {
+    //   this.setCookieConsent('necessary');
+    //   consentBanner.remove();
+    // });
+
+    // function setCookieConsent(level) {
+    //   // Store the consent level
+    //   localStorage.setItem('cookieConsent', level);
+      
+    //   // Set a cookie to track consent
+    //   const date = new Date();
+    //   date.setFullYear(date.getFullYear() + 1); // Cookie expires in 1 year
+    //   document.cookie = `cookieConsent=${level}; expires=${date.toUTCString()}; path=/; SameSite=Strict`;
+    
+    //   // If analytics cookies are accepted, you can initialize analytics here
+    //   if (level === 'all') {
+    //     // Initialize analytics (if needed)
+    //     this.initializeAnalytics();
+    //   }
+    // }
   }
 
   initPreloader() {
