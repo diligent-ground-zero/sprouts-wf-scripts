@@ -1,4 +1,15 @@
-/* Add these classes for Lenis smooth scroll */
+html {
+  text-rendering: optimizeLegibility;
+  -webkit-text-rendering: optimizeLegibility;
+  -moz-text-rendering: optimizeLegibility;
+  -ms-text-rendering: optimizeLegibility;
+  -o-text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -ms-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+}
+
 html.lenis {
   height: auto;
 }
@@ -137,6 +148,10 @@ dialog::backdrop {
   animation: backdrop-fade 0.8s ease-out forwards;
 }
 
+.custom_text_wrap {
+  overflow: hidden;
+}
+
 @keyframes backdrop-fade {
   from {
     opacity: 0;
@@ -231,6 +246,10 @@ dialog::backdrop {
 }
 
 @media (width >=992px) {
+
+  section[data-first-section-after-header] {
+    margin-top: -10.5rem !important;
+  }
 
   .about_us_footer_grid h3.u-color-sprouts.u-text-style-h2-footer {
     font-size: 13.2cqi;
