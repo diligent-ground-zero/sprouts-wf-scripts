@@ -15,7 +15,7 @@ class GlobalScripts {
     this.initPreloader();
 
     
-    if (deviceDetection.isMobile || deviceDetection.isTablet) {
+    if (window.innerWidth < 992) {
       this.initMobileMenu();
     }
 
