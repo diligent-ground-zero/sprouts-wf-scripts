@@ -17,8 +17,7 @@ class CreatorSingleScripts {
   initSwiper() {
     const swiper = new Swiper('.other_creators_carousel_contain', {
       modules: [Navigation],
-      spaceBetween: 40,
-      centeredSlides: true,
+      spaceBetween: 20,
       slidesPerView: 'auto',
       preventClicks: true,
       loop: true,
@@ -26,9 +25,14 @@ class CreatorSingleScripts {
       resistance: true,
       allowTouchMove: true,
       breakpoints: {
+        768: {
+          slidesPerView: 2,
+          allowTouchMove: false,
+        },
         992: {
           slidesPerView: 3,
           allowTouchMove: false,
+          centeredSlides: true,
         }
       },
       navigation: {
