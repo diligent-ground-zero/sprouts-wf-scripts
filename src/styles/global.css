@@ -285,7 +285,10 @@ dialog::backdrop {
 }
 
 .creators_dialog {
+  border-radius: 25px;
   padding: 3rem;
+  margin-top: 5rem !important;
+  max-height: 500px;
 }
 
 .creators_dialog .creators_dialog_form {
@@ -319,6 +322,14 @@ dialog::backdrop {
 }
 
 @media (width > 768px) {
+  .creators_dialog .creators_dialog_form .creators_dialog_form_image_desktop {
+    display: block;
+  }
+
+  .creators_dialog .creators_dialog_form .creators_dialog_form_image_mobile {
+    display: none;
+  }
+
   .global_cookie_modal .consent-dialog-container .dialog-content .accept-buttons {
     display: flex;
     flex-direction: row;
@@ -380,14 +391,6 @@ dialog::backdrop {
   .creators_dialog .creators_dialog_form {
     overflow: hidden;
     height: auto;
-  }
-
-  .creators_dialog .creators_dialog_form .creators_dialog_form_image_desktop {
-    display: block;
-  }
-
-  .creators_dialog .creators_dialog_form .creators_dialog_form_image_mobile {
-    display: none;
   }
 
   .nav_links_link.is-desktop.w--current {
