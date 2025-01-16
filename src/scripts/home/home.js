@@ -147,12 +147,13 @@ class HomeScripts {
   }
 
   initInfiniteLogoLoop() {
-    const boxes = document.querySelector('.splide_list')
-    const boxesArray = Array.from(boxes.children)
-    boxesArray.forEach((item) => {
+    const scroller = document.querySelector('.logo_scroll')
+    const scrollerInner = scroller.querySelector('.logo_scroll_inner')
+    const scrollerContent = Array.from(scrollerInner.children);
+    scrollerContent.forEach((item) => {
       const duplicatedItem = item.cloneNode(true);
       duplicatedItem.setAttribute("aria-hidden", true);
-      boxes.appendChild(duplicatedItem);
+      scrollerInner.appendChild(duplicatedItem);
     });
   }
 }
