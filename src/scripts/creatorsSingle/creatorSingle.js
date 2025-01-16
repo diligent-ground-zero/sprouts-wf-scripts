@@ -1,4 +1,9 @@
-
+import Swiper from 'swiper';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import { deviceDetection } from '../global/deviceDetect';
 export default function () {
   return new CreatorSingleScripts();
 }
@@ -6,6 +11,46 @@ export default function () {
 class CreatorSingleScripts {
   constructor() {
     this.checkImagesAndInitDialog();
+    this.initSwiper()
+  }
+
+  initSwiper() {
+    const swiper = new Swiper('.other_creators_carousel_contain', {
+      modules: [Navigation],
+      spaceBetween: 40,
+      centeredSlides: true,
+      slidesPerView: 'auto',
+      preventClicks: true,
+      loop: true,
+      speed:1000,
+      resistance: true,
+      allowTouchMove: true,
+      breakpoints: {
+        992: {
+          slidesPerView: 3,
+          allowTouchMove: false,
+        }
+      },
+      navigation: {
+        nextEl: '.other-creators-buttons-next',
+        prevEl: '.other-creators-buttons-prev',
+      },
+    });
+
+    if ((deviceDetection.isMobile || deviceDetection.isTablet) && window.innerWidth < 767) {
+      const swiper = new Swiper('.feed_grid_wrap', {
+        direction: 'vertical',
+         modules: [Pagination,Navigation],
+        spaceBetween: 40,
+        loop: true,
+        duration: 2000,
+        resistance: true,
+        pagination: {
+          el: '.feed_grid_pagination',
+          clickable: true,
+        },
+      })
+    }
   }
 
   checkImagesAndInitDialog() {

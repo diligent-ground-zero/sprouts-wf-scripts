@@ -15,7 +15,8 @@ class GlobalScripts {
     this.initPreloader();
 
     
-    if (window.innerWidth < 992) {
+    if ((deviceDetection.isMobile || deviceDetection.isTablet) || window.innerWidth < 992) {
+      console.log('mobile');
       this.initMobileMenu();
     }
 
@@ -71,32 +72,6 @@ class GlobalScripts {
       localStorage.setItem('cookieConsent', 'necessary');
       consentBanner.remove();
     });
-
-    // document.getElementById('acceptAllCookies').addEventListener('click', () => {
-    //   this.setCookieConsent('all');
-    //   consentBanner.remove();
-    // });
-  
-    // document.getElementById('acceptNecessaryCookies').addEventListener('click', () => {
-    //   this.setCookieConsent('necessary');
-    //   consentBanner.remove();
-    // });
-
-    // function setCookieConsent(level) {
-    //   // Store the consent level
-    //   localStorage.setItem('cookieConsent', level);
-      
-    //   // Set a cookie to track consent
-    //   const date = new Date();
-    //   date.setFullYear(date.getFullYear() + 1); // Cookie expires in 1 year
-    //   document.cookie = `cookieConsent=${level}; expires=${date.toUTCString()}; path=/; SameSite=Strict`;
-    
-    //   // If analytics cookies are accepted, you can initialize analytics here
-    //   if (level === 'all') {
-    //     // Initialize analytics (if needed)
-    //     this.initializeAnalytics();
-    //   }
-    // }
   }
 
   initPreloader() {

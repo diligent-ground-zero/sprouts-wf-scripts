@@ -66,44 +66,55 @@ class HomeScripts {
   }
   
   initTrackTextAnimation() {
-    const textElements = document.querySelectorAll('.track-child .heading-3');
+    const stackingTextSection = document.querySelector('.stacking_text_wrap');
+    const stackingCardParent = stackingTextSection.querySelector('.stacking_text_contain_inner');
+    const stackingCardTextWrapper = stackingCardParent.querySelector('.stacking_text_contain_inner_wrapper');
+    const stackingCardTextWrapperChildren = Array.from(stackingCardTextWrapper.children);
+    const stackingCardImage = stackingTextSection.querySelector('.stacking_text_contain_inner_team_image');
 
-    // Split text into spans for each heading
-    textElements.forEach((element) => {
+    gsap.set(stackingCardImage, {
+      opacity: 0,
+      scale: 0.8,
+    })
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: stackingCardParent,
+        start: 'top 50%', 
+        end: 'bottom 50%',
+        scrub: 1,
+        toggleActions: 'play none none reverse',
+        pinSpacing: false,
+      }
+    });
+
+    stackingCardTextWrapperChildren.forEach((element) => {
       element.setAttribute('text-split', '');
     });
 
-    // Initialize SplitType with minimal settings
     new SplitType('[text-split]', {
       types: 'words',
       tagName: 'span',
     });
 
-    // Create animation for each heading
-    textElements.forEach((element) => {
-      let tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: element,
-          start: 'top 50%',
-          // End animation when element is 20% from the top
-          end: 'bottom',
-          scrub: 1, // Smooth scrubbing effect
-          //markers: true, // Uncomment for debugging
-          toggleActions: 'play none none reverse',
-          pinSpacing: false,
-        },
-      });
-
-      tl.from(element.querySelectorAll('.word'), {
+    gsap.set('[text-split]', { opacity: 1 });
+    stackingCardTextWrapperChildren.forEach((element) => {
+      tl.fromTo(element.querySelectorAll('.word'), {
         opacity: 0.2,
+      }, {
+        opacity: 1,
+        stagger: { each: 0.2 },
         duration: 0.6,
         ease: 'power2.out',
-        stagger: { each: 0.2 },
       });
     });
 
-    // Ensure text is visible
-    gsap.set('[text-split]', { opacity: 1 });
+    tl.to(stackingCardImage, {
+      opacity: 1,
+      duration: 3,
+      scale: 1,
+      ease: 'power2.out',
+    }, '+=1')
   }
 
   initStackingCards() {

@@ -26,6 +26,12 @@ export class CustomCursor {
     if (!document.querySelector('.custom-cursor')) {
       const cursor = document.createElement('div');
       cursor.className = 'custom-cursor';
+      
+      const cursorText = document.createElement('span');
+      cursorText.className = 'custom-cursor-text';
+      cursorText.textContent = 'See More';
+      cursor.appendChild(cursorText);
+      
       document.body.insertBefore(cursor, document.body.firstChild);
     }
   }
@@ -34,12 +40,54 @@ export class CustomCursor {
     // Initial cursor setup
     this.cursor.style.opacity = '0';
 
-    // Mouse move handler with lerp smoothing
     document.addEventListener('mousemove', (e) => {
-      if (!this.isVisible) {
+      const elementUnderCursor = document.elementFromPoint(e.clientX, e.clientY);
+      const shouldHideCursor = elementUnderCursor?.hasAttribute('data-hide-cursor') || 
+                              elementUnderCursor?.closest('[data-hide-cursor]');
+      const hasDetailCursor = elementUnderCursor?.hasAttribute('data-detail-cursor') || 
+                             elementUnderCursor?.closest('[data-detail-cursor]');
+
+      // Handle cursor visibility and state
+      if (!this.isVisible && !shouldHideCursor) {
         this.isVisible = true;
         gsap.to(this.cursor, {
           opacity: 1,
+          duration: 0.3,
+          ease: 'power2.out',
+        });
+      } else if (this.isVisible && shouldHideCursor) {
+        this.isVisible = false;
+        gsap.to(this.cursor, {
+          opacity: 0,
+          duration: 0.3,
+          ease: 'power2.out',
+        });
+      }
+
+      // Handle detail cursor state
+      if (hasDetailCursor && !this.cursor.classList.contains('detail-mode')) {
+        this.cursor.classList.add('detail-mode');
+        gsap.to(this.cursor, {
+          scale: 4,
+          backgroundColor: 'var(--swatch--dark)',
+          duration: 0.3,
+          ease: 'power2.out',
+        });
+        gsap.to('.custom-cursor-text', {
+          opacity: 1,
+          duration: 0.3,
+          ease: 'power2.out',
+        });
+      } else if (!hasDetailCursor && this.cursor.classList.contains('detail-mode')) {
+        this.cursor.classList.remove('detail-mode');
+        gsap.to(this.cursor, {
+          scale: 1,
+          backgroundColor: 'rgba(0, 0, 0, 0.2)',
+          duration: 0.3,
+          ease: 'power2.out',
+        });
+        gsap.to('.custom-cursor-text', {
+          opacity: 0,
           duration: 0.3,
           ease: 'power2.out',
         });
@@ -80,23 +128,23 @@ export class CustomCursor {
     });
 
     // Handle elements with data-hide-cursor
-    this.hideCursorElements.forEach((element) => {
-      element.addEventListener('mouseenter', () => {
-        gsap.to(this.cursor, {
-          opacity: 0,
-          duration: 0.3,
-          ease: 'power2.out',
-        });
-      });
+    // this.hideCursorElements.forEach((element) => {
+    //   element.addEventListener('mouseenter', () => {
+    //     gsap.to(this.cursor, {
+    //       opacity: 0,
+    //       duration: 0.3,
+    //       ease: 'power2.out',
+    //     });
+    //   });
 
-      element.addEventListener('mouseleave', () => {
-        gsap.to(this.cursor, {
-          opacity: 1,
-          duration: 0.3,
-          ease: 'power2.out',
-        });
-      });
-    });
+    //   element.addEventListener('mouseleave', () => {
+    //     gsap.to(this.cursor, {
+    //       opacity: 1,
+    //       duration: 0.3,
+    //       ease: 'power2.out',
+    //     });
+    //   });
+    // });
 
     // Start the animation loop
     this.render();
