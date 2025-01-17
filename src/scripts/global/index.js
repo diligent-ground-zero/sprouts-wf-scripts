@@ -4,7 +4,6 @@ import { deviceDetection } from './deviceDetect';
 import { CustomCursor } from './customCursor';
 import CustomEase from 'gsap/CustomEase';
 import Flip from 'gsap/Flip';
-
 class GlobalScripts {
   constructor() {
     this.initLenis();
@@ -16,7 +15,6 @@ class GlobalScripts {
 
     
     if ((deviceDetection.isMobile || deviceDetection.isTablet) || window.innerWidth < 992) {
-      console.log('mobile');
       this.initMobileMenu();
     }
 
@@ -27,23 +25,23 @@ class GlobalScripts {
   }
 
   initGlobalAnimations() {
-    const footerItems = gsap.utils.toArray('.about_us_footer_grid > h3');
-    gsap.set('.about_us_footer_grid', { overflow: 'hidden' });
-    const tl = gsap.timeline();
-    footerItems.forEach((item,index) => {
-      gsap.set(item, { y: 50 , opacity: 0 });
-      gsap.to(item, {
-        y: 1,
-        opacity: 1,
-        duration: 2,
-        delay: 1.6 * index,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: item,
-          start: 'top 85%',
-          // markers: true,
-        }
-      });
+    gsap.set('.about_us_footer_grid', { clipPath: 'polygon(0 100%, 100% 100%, 100% 100%, 0% 100%)', opacity: 0});
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.footer_1_wrap',
+        start: 'top center',
+      },
+      defaults: {
+        ease: (progress)=> {
+          return progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress)
+        },
+        duration: 3
+      }
+    });
+    tl.to('.about_us_footer_grid', {
+      clipPath: 'polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)',
+      delay: 0.5,
+      opacity: 1
     });
   }
 

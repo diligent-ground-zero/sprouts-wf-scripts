@@ -1,6 +1,8 @@
 import '../../styles/home.css';
 import SplitType from 'split-type';
 import gsap from 'gsap';
+import { deviceDetection } from '../global/deviceDetect';
+
 export default function () {
   return new HomeScripts();
 }
@@ -10,12 +12,12 @@ class HomeScripts {
     this.initTrackTextAnimation();
     this.initStackingCards();
     this.initInfiniteLogoLoop();
-    this.initHeroAnimation();
+    if (deviceDetection.isDesktop) {
+      this.initHeroAnimation();
+    }
   }
 
   initHeroAnimation() {
-    let customEase =
-    'M0,0,C0,0,0.13,0.34,0.238,0.442,0.305,0.506,0.322,0.514,0.396,0.54,0.478,0.568,0.468,0.56,0.522,0.584,0.572,0.606,0.61,0.719,0.714,0.826,0.798,0.912,1,1,1,1';
     const loadingDuration = sessionStorage.getItem('visited') !== null ? 3 : 1;
     const rows = [
       '.custom_text_wrap_one',
@@ -27,42 +29,64 @@ class HomeScripts {
       text: document.querySelectorAll(`${selector} .hero_heading_text`)
     }));
 
+    const ctaRow = document.querySelector('.hero_heading_wrap .custom_text_wrap:last-child');
+    const arrow = ctaRow.querySelector('.custom_text_container_arrow_icon');
+    const navRow = document.querySelector('nav');
   
     // Set initial states
     rows.forEach(row => {
-      // gsap.set(row.container, { overflow: 'hidden' });
-      // gsap.set(row.image, { scale: 0.5, opacity:0 });
-      // row.text.forEach(text => {
-      //   gsap.set(text, { opacity: 0,y:50 });
-      // })
+      gsap.set(row.container, { clipPath: 'polygon(0 100%, 100% 100%, 100% 100%, 0% 100%)', scale:0.8 });
+      gsap.set(row.image, { clipPath: 'polygon(0 100%, 100% 100%, 100% 100%, 0% 100%)', scale:0.8});
+      gsap.set(ctaRow, {  opacity:0});
+      gsap.set(navRow, {  opacity:0});
+      gsap.set(arrow, {  opacity:0});
     });
   
     // Create the animation timeline
     const tl = gsap.timeline({
       defaults: {
-        ease: 'power3.out',
+        ease: (progress)=> {
+          return progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress)
+        },
+        duration: 2
       }
     });
   
-    // rows.forEach((row, index) => {
-    //   const stagger = index === 0 
-    //     ? loadingDuration 
-    //     : `+=${0.5}`;
-    //   tl.to(row.image, {
-    //     scale: 1,
-    //     opacity: 1,
-    //     duration: 0.8,
-    //   }, stagger);
-    // });
-    // First animate the containers and images
-  
-    // Then animate the text elements
-    // rows.forEach((row, index) => {
-    //   tl.to(row.text, {
-    //     opacity: 1,
-    //     duration: 1,
-    //   }, index === 0 ? '-=1' : '-=0.7'); // Overlap text animations for smoother flow
-    // });
+    rows.forEach((row, index) => {
+        tl.to(row.container, {
+          clipPath: 'polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)',
+          scale:1,
+          delay:loadingDuration,
+        }, 0);
+
+        tl.to(row.image, {
+          clipPath: 'polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)',
+          scale:1,
+          delay:loadingDuration,
+        }, '0.5');
+    });
+
+    tl.to(navRow, {
+      opacity:1,
+      duration:3
+    }, '-=1.5');
+
+    tl.to(ctaRow, {
+      opacity:1,
+      duration:3,
+    }, '-=2');
+
+    tl.to(arrow, {
+      opacity: 1,
+      duration: 2,
+    }, '-=2')
+    .to(arrow, {
+      y: 10,
+      duration: 2,
+      repeat: -1,
+      yoyo: true,
+      ease: "circ.out"
+    }, '-=1');
   }
   
   initTrackTextAnimation() {
