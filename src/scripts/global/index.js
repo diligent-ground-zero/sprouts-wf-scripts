@@ -90,7 +90,6 @@ class GlobalScripts {
         value: 75,
       };
     }
-    sessionStorage.setItem('visited', 'true');
 
     function updateLoaderText() {
       let progress = Math.round(counter.value);
@@ -100,6 +99,7 @@ class GlobalScripts {
       $('.preloader_trigger').click();
       lenis.start();
       initCookieConsent();
+      sessionStorage.setItem('visited', 'true');
     }
     let tl = gsap.timeline({
       onComplete: endLoaderAnimation,

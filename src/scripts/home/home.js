@@ -18,7 +18,7 @@ class HomeScripts {
   }
 
   initHeroAnimation() {
-    const loadingDuration = sessionStorage.getItem('visited') !== null ? 3 : 1;
+    const loadingDuration = sessionStorage.getItem('visited') !== null ? 2.5 : 4.75;
     const rows = [
       '.custom_text_wrap_one',
       '.custom_text_wrap_two',
