@@ -77,16 +77,15 @@ class HomeScripts {
     }, '-=2');
 
     tl.to(arrow, {
-      opacity: 1,
-      duration: 2,
-    }, '-=2')
-    .to(arrow, {
+      opacity:1,
+    }, '-=2');
+    tl.to(arrow, {
       y: 10,
-      duration: 2,
+      duration: 1,
       repeat: -1,
       yoyo: true,
       ease: "circ.out"
-    }, '-=1');
+    }, '-=2')
   }
   
   initTrackTextAnimation() {

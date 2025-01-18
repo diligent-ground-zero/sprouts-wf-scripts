@@ -49,6 +49,8 @@ class GlobalScripts {
     if (localStorage.getItem('cookieConsent')) return;
 
     const consentBanner = document.querySelector('.global_cookie_modal');
+    const consentBannerContent = consentBanner.querySelector('.consent-dialog-container');
+    consentBannerContent.toggleAttribute('inert');
     const buttonWrap = consentBanner.querySelector('.accept-buttons');
     consentBanner.style = 'display: block;';
     
@@ -56,19 +58,30 @@ class GlobalScripts {
     closeButton.textContent = 'Decline all';
 
     closeButton.addEventListener('click', () => {
-      localStorage.setItem('cookieConsent', 'declide');
+      localStorage.setItem('cookieConsent', JSON.stringify({
+        consent: ['necessary'],
+        date: new Date().toISOString()
+      }));
       consentBanner.remove();
     });
+
     buttonWrap.appendChild(closeButton);
-
     consentBanner.querySelector('button:first-child').addEventListener('click', () => {
-      localStorage.setItem('cookieConsent', 'all');
+      localStorage.setItem('cookieConsent', JSON.stringify({
+        consent: ['necessary', 'functionality', 'analytics'],
+        date: new Date().toISOString()
+      }));
       consentBanner.remove();
     });
 
-    consentBanner.querySelector('[data-cc-accept="[]"]').addEventListener('click', () => {
-      localStorage.setItem('cookieConsent', 'necessary');
-      consentBanner.remove();
+    consentBanner.querySelectorAll('[data-cc-accept="[]"]').forEach(button => {
+      button.addEventListener('click', () => {
+        localStorage.setItem('cookieConsent', JSON.stringify({
+          consent: ['necessary'],
+          date: new Date().toISOString()
+        }));
+        consentBanner.remove();
+      });
     });
   }
 
