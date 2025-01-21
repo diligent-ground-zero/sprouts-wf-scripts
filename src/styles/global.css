@@ -206,10 +206,6 @@ html.lenis {
   cursor: grabbing;
 }
 
-.preloader {
-  display: flex;
-}
-
 /* .other_creators_carousel_contain,
 .feed_grid {
   mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
