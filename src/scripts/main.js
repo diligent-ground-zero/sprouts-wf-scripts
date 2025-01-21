@@ -13,7 +13,7 @@ const init = () => {
   gsap.registerPlugin(ScrollTrigger);
   gsap.registerPlugin(CustomEase);
   gsap.registerPlugin(Flip);
-  globalScripts();
+  const globalScriptsInstance = globalScripts();
 
   if (window.location.pathname.endsWith('/')) {
     homeScripts();
@@ -24,7 +24,7 @@ const init = () => {
   }
 
   if (/^\/creators\/[^/]+$/.test(window.location.pathname)) {
-    creatorSingleScripts();
+    creatorSingleScripts(globalScriptsInstance.lenis);
   }
 
   if (window.location.pathname.endsWith('/team')) {

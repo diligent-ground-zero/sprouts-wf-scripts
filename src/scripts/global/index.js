@@ -6,12 +6,12 @@ import CustomEase from 'gsap/CustomEase';
 import Flip from 'gsap/Flip';
 class GlobalScripts {
   constructor() {
-    this.initLenis();
     this.lastScrollTop = 0;
     this.isAnimating = false;
     this.debounceTimeout = null;
     this.ticking = false;
-
+    this.lenis = null;
+    this.initLenis();
     if(window.location.hostname !== 'sprouts-relaunch.webflow.io') {
       this.initPreloader();
     }

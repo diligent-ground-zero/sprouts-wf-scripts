@@ -4,12 +4,14 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { deviceDetection } from '../global/deviceDetect';
-export default function () {
-  return new CreatorSingleScripts();
+
+export default function (lenisInstance) {
+  return new CreatorSingleScripts(lenisInstance);
 }
 
 class CreatorSingleScripts {
-  constructor() {
+  constructor(lenisInstance) {
+    this.lenisInstance = lenisInstance;
     this.checkImagesAndInitDialog();
     this.initSwiper()
   }
@@ -76,16 +78,29 @@ class CreatorSingleScripts {
 
   creatorDemoDialog() {
     const demoButton = document.querySelector('[data-creator-demos-button]');
-
+    const modal = document.querySelector('.creators_dialog_wrap').children[0];
+  
     if (demoButton) {
       demoButton.addEventListener('click', () => {
-        const modal = document.querySelector('.creators_dialog_wrap').children[0];
-        if (modal) {
-          modal.showModal();
-        }
+        this.lenisInstance.stop();
+        modal.showModal();
+      });
+    }
+  
+    if (modal) {
+      modal.addEventListener('close', () => {
+        this.lenisInstance.start(); // Resume scrolling
+      });
+    }
+  
+    const closeButton = modal.querySelector('.close-button'); // Adjust selector as needed
+    if (closeButton) {
+      closeButton.addEventListener('click', () => {
+        modal.close();
       });
     }
   }
+
   hideDialogOpenButton() {
     const demoButton = document.querySelector('[data-creator-demos-button]');
     if (demoButton) {
