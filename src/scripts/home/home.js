@@ -78,7 +78,7 @@ class HomeScripts {
 
     tl.to(arrow, {
       opacity:1,
-    }, '-=2');
+    }, '-=2');x
     tl.to(arrow, {
       y: 10,
       duration: 1,

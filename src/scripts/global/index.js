@@ -11,8 +11,10 @@ class GlobalScripts {
     this.isAnimating = false;
     this.debounceTimeout = null;
     this.ticking = false;
-    this.initPreloader();
 
+    if(window.location.hostname !== 'sprouts-relaunch.webflow.io') {
+      this.initPreloader();
+    }
     
     if ((deviceDetection.isMobile || deviceDetection.isTablet) || window.innerWidth < 992) {
       this.initMobileMenu();
