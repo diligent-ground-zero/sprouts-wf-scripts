@@ -414,7 +414,8 @@ dialog::backdrop {
   }
 
   .creators_dialog {
-    margin-top: 0 !important;
+    margin-top: auto !important;
+    margin-bottom: auto !important;
   }
 
   .creators_dialog .creators_dialog_form {
