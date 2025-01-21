@@ -413,6 +413,10 @@ dialog::backdrop {
     transition: none;
   }
 
+  .creators_dialog {
+    margin-top: 0 !important;
+  }
+
   .creators_dialog .creators_dialog_form {
     overflow: hidden;
     height: auto;
