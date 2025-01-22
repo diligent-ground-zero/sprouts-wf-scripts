@@ -282,13 +282,11 @@ dialog::backdrop {
 
 .creators_dialog {
   border-radius: 25px;
-  padding-left: 2.5rem;
-  padding-right: 1.75rem;
-  padding-top: 4rem;
-  padding-bottom: 4rem;
+  padding: 6rem 1rem 4rem 1rem;
   margin-top: 5rem !important;
   overflow: hidden;
   min-width: 80%;
+  margin-bottom: auto;
 }
 
 .creators_dialog>div {
@@ -297,6 +295,7 @@ dialog::backdrop {
   box-sizing: border-box;
   overflow-y: scroll;
   height: 500px;
+  padding-right: 1rem;
 }
 
 /* Scrollbar styles */
@@ -418,6 +417,11 @@ dialog::backdrop {
     margin-top: auto !important;
     margin-bottom: auto !important;
     min-width: 75%;
+    padding: 5rem 2rem 5rem 2rem;
+  }
+
+  .creators_dialog>div {
+    height: 50vh;
   }
 
   .creators_dialog .creators_dialog_form {

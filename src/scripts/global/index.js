@@ -12,10 +12,12 @@ class GlobalScripts {
     this.ticking = false;
     this.lenis = null;
     this.initLenis();
-    if(window.location.hostname !== 'sprouts-relaunch.webflow.io') {
-      this.initPreloader();
-    }
+
+    // if(window.location.hostname !== 'sprouts-relaunch.webflow.io') {
+    //   this.initPreloader();
+    // }
     
+    this.initPreloader();
     if ((deviceDetection.isMobile || deviceDetection.isTablet) || window.innerWidth < 992) {
       this.initMobileMenu();
     }
