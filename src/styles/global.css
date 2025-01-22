@@ -288,6 +288,7 @@ dialog::backdrop {
   padding-bottom: 4rem;
   margin-top: 5rem !important;
   overflow: hidden;
+  min-width: 80%;
 }
 
 .creators_dialog>div {
@@ -416,6 +417,7 @@ dialog::backdrop {
   .creators_dialog {
     margin-top: auto !important;
     margin-bottom: auto !important;
+    min-width: 75%;
   }
 
   .creators_dialog .creators_dialog_form {
