@@ -78,6 +78,7 @@ export class CustomCursor {
           opacity: 1,
           duration: 0.3,
           ease: 'power2.out',
+          force3D: false
         });
       } else if (!hasDetailCursor && this.cursor.classList.contains('detail-mode')) {
         this.cursor.classList.remove('detail-mode');
