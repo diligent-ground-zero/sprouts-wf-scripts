@@ -6,7 +6,6 @@ export class CustomCursor {
     // Only initialize on desktop devices
     if (!deviceDetection.isDesktop) return;
 
-    gsap.config({ force3D: false })
     // Create cursor element
     this.createCursorElement();
     this.cursor = document.querySelector('.custom-cursor');
@@ -38,9 +37,6 @@ export class CustomCursor {
   }
 
   init() {
-    // Initial cursor setup
-    this.cursor.style.opacity = '0';
-
     document.addEventListener('mousemove', (e) => {
       const elementUnderCursor = document.elementFromPoint(e.clientX, e.clientY);
       const shouldHideCursor = elementUnderCursor?.hasAttribute('data-hide-cursor') || 
@@ -51,17 +47,10 @@ export class CustomCursor {
       // Handle cursor visibility and state
       if (!this.isVisible && !shouldHideCursor) {
         this.isVisible = true;
-        gsap.from(this.cursor, {
-          opacity: 0,
+        gsap.to(this.cursor, {
+          opacity: 1,
           duration: 0.3,
           ease: 'power2.out',
-          onComplete: () => {
-            gsap.to(this.cursor, {
-              opacity: 1,
-              duration: 0.3,
-              ease: 'power2.out',
-            });
-          }
         });
       } else if (this.isVisible && shouldHideCursor) {
         this.isVisible = false;
@@ -76,27 +65,30 @@ export class CustomCursor {
       if (hasDetailCursor && !this.cursor.classList.contains('detail-mode')) {
         this.cursor.classList.add('detail-mode');
         gsap.to(this.cursor, {
-          scale: 4,
+          width: 150,
+          height: 150,
           backgroundColor: 'var(--swatch--dark)',
           duration: 0.3,
           ease: 'power2.out',
         });
         gsap.to('.custom-cursor-text', {
           opacity: 1,
-          duration: 0.3,
+          duration: 0.4,
+          delay:0.2,
           ease: 'power2.out',
         });
       } else if (!hasDetailCursor && this.cursor.classList.contains('detail-mode')) {
         this.cursor.classList.remove('detail-mode');
         gsap.to(this.cursor, {
-          scale: 1,
+          width: 45,
+          height: 45,
           backgroundColor: 'rgba(0, 0, 0, 0.2)',
           duration: 0.3,
           ease: 'power2.out',
         });
         gsap.to('.custom-cursor-text', {
-          opacity: 0,
-          duration: 0.3,
+          opacity:0,
+          duration: 0,
           ease: 'power2.out',
         });
       }
@@ -119,7 +111,8 @@ export class CustomCursor {
       if (!link.hasAttribute('data-hide-cursor')) {
         link.addEventListener('mouseenter', () => {
           gsap.to(this.cursor, {
-            scale: 3,
+            width: 135,
+            height: 135,
             duration: 0.3,
             ease: 'power2.out',
           });
@@ -127,7 +120,8 @@ export class CustomCursor {
 
         link.addEventListener('mouseleave', () => {
           gsap.to(this.cursor, {
-            scale: 1,
+            width: 45,
+            height: 45,
             duration: 0.3,
             ease: 'power2.out',
           });
@@ -143,8 +137,8 @@ export class CustomCursor {
     // Smooth interpolation
     const lerp = (start, end, factor) => start + (end - start) * factor;
 
-    this.cursorPos.x = lerp(this.cursorPos.x, this.targetPos.x, 0.2);
-    this.cursorPos.y = lerp(this.cursorPos.y, this.targetPos.y, 0.2);
+    this.cursorPos.x = lerp(this.cursorPos.x, this.targetPos.x, 0.1);
+    this.cursorPos.y = lerp(this.cursorPos.y, this.targetPos.y, 0.1);
 
     gsap.set(this.cursor, {
       x: this.cursorPos.x,

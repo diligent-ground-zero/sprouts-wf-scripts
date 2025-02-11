@@ -128,15 +128,14 @@ html.lenis {
 
 @media (hover: hover) and (pointer: fine) {
   .custom-cursor {
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     background: rgba(0, 0, 0, 0.2);
     border-radius: 50%;
     position: fixed;
     pointer-events: none;
     z-index: 999;
     opacity: 0;
-    /* transform: translate(-50%, -50%); */
     mix-blend-mode: normal;
     backdrop-filter: invert(1);
     -webkit-backdrop-filter: invert(1);
@@ -144,14 +143,18 @@ html.lenis {
     align-items: center;
     justify-content: center;
     padding: 1rem;
-    /* transition:
-      opacity 0.3s ease-out,
-      transform 0.2s ease-out; */
+    transform: translate(-50%, -50%);
+    will-change: transform;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.318);
   }
 
   .custom-cursor-text {
     color: white;
-    font-size: 14px;
+    font-size: 44px;
     opacity: 0;
     pointer-events: none;
     font-weight: 500;
@@ -159,9 +162,14 @@ html.lenis {
     text-align: center;
     font-family: var(--h1--font-family);
     text-transform: uppercase;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transform: translateZ(0);
+    will-change: transform;
+    transform-style: flat;
   }
 
-  .custom-cursor.hover {
+  /* .custom-cursor.hover {
     transform: translate(-50%, -50%) scale(1.5);
     backdrop-filter: invert(1) blur(2px);
     -webkit-backdrop-filter: invert(1) blur(2px);
@@ -172,7 +180,7 @@ html.lenis {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
     background: var(--swatch--dark);
-  }
+  } */
 }
 
 .team_wrap .title_contain .section_team_grid_wrap .section_team_grid_item .section_team_grid_item_text_wrap_hidden_wrap {
