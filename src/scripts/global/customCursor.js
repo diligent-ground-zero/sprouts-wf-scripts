@@ -72,6 +72,7 @@ export class CustomCursor {
           backgroundColor: 'var(--swatch--dark)',
           duration: 0.3,
           ease: 'power2.out',
+          force3D: false
         });
         gsap.to('.custom-cursor-text', {
           opacity: 1,

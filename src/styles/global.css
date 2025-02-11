@@ -206,12 +206,6 @@ html.lenis {
   cursor: grabbing;
 }
 
-/* .other_creators_carousel_contain,
-.feed_grid {
-  mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
-  -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
-} */
-
 .global_nav_contain_logo_wrap {
   transition:
     opacity 0.8s ease-out 0.2s,
