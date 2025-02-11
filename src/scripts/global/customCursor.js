@@ -72,13 +72,11 @@ export class CustomCursor {
           backgroundColor: 'var(--swatch--dark)',
           duration: 0.3,
           ease: 'power2.out',
-          force3D: false
         });
         gsap.to('.custom-cursor-text', {
           opacity: 1,
           duration: 0.3,
           ease: 'power2.out',
-          force3D: false
         });
       } else if (!hasDetailCursor && this.cursor.classList.contains('detail-mode')) {
         this.cursor.classList.remove('detail-mode');
@@ -129,25 +127,6 @@ export class CustomCursor {
       }
     });
 
-    // Handle elements with data-hide-cursor
-    // this.hideCursorElements.forEach((element) => {
-    //   element.addEventListener('mouseenter', () => {
-    //     gsap.to(this.cursor, {
-    //       opacity: 0,
-    //       duration: 0.3,
-    //       ease: 'power2.out',
-    //     });
-    //   });
-
-    //   element.addEventListener('mouseleave', () => {
-    //     gsap.to(this.cursor, {
-    //       opacity: 1,
-    //       duration: 0.3,
-    //       ease: 'power2.out',
-    //     });
-    //   });
-    // });
-
     // Start the animation loop
     this.render();
   }
@@ -162,7 +141,7 @@ export class CustomCursor {
     gsap.set(this.cursor, {
       x: this.cursorPos.x,
       y: this.cursorPos.y,
-      force3D: true,
+      force3D: false,
     });
 
     requestAnimationFrame(this.render);
