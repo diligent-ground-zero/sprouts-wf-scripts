@@ -136,9 +136,6 @@ html.lenis {
     pointer-events: none;
     z-index: 999;
     opacity: 0;
-    transition:
-      opacity 0.3s ease-out,
-      transform 0.2s ease-out;
     transform: translate(-50%, -50%);
     mix-blend-mode: normal;
     backdrop-filter: invert(1);
@@ -147,6 +144,7 @@ html.lenis {
     align-items: center;
     justify-content: center;
     padding: 1rem;
+    will-change: transform;
   }
 
   .custom-cursor-text {
