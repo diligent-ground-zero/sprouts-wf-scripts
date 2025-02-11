@@ -6,6 +6,7 @@ export class CustomCursor {
     // Only initialize on desktop devices
     if (!deviceDetection.isDesktop) return;
 
+    gsap.config({ force3D: false })
     // Create cursor element
     this.createCursorElement();
     this.cursor = document.querySelector('.custom-cursor');
@@ -50,10 +51,17 @@ export class CustomCursor {
       // Handle cursor visibility and state
       if (!this.isVisible && !shouldHideCursor) {
         this.isVisible = true;
-        gsap.to(this.cursor, {
-          opacity: 1,
+        gsap.from(this.cursor, {
+          opacity: 0,
           duration: 0.3,
           ease: 'power2.out',
+          onComplete: () => {
+            gsap.to(this.cursor, {
+              opacity: 1,
+              duration: 0.3,
+              ease: 'power2.out',
+            });
+          }
         });
       } else if (this.isVisible && shouldHideCursor) {
         this.isVisible = false;
@@ -141,7 +149,6 @@ export class CustomCursor {
     gsap.set(this.cursor, {
       x: this.cursorPos.x,
       y: this.cursorPos.y,
-      force3D: false,
     });
 
     requestAnimationFrame(this.render);
