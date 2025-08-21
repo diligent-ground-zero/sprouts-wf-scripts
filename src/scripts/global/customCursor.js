@@ -79,17 +79,16 @@ export class CustomCursor {
         });
       } else if (!hasDetailCursor && this.cursor.classList.contains('detail-mode')) {
         this.cursor.classList.remove('detail-mode');
+        
+        gsap.killTweensOf('.custom-cursor-text');
+        gsap.set('.custom-cursor-text', { opacity: 0 });
+        
         gsap.to(this.cursor, {
           width: 45,
           height: 45,
           backgroundColor: 'rgba(0, 0, 0, 0.2)',
           duration: 0.3,
-          ease: 'power2.out',
-        });
-        gsap.to('.custom-cursor-text', {
-          opacity:0,
-          duration: 0,
-          ease: 'power2.out',
+          ease: 'power2.out'
         });
       }
 

@@ -168,15 +168,6 @@ class HomeScripts {
             filter: 'blur(8px)',
           },
         )
-        .fromTo(
-          card,
-          {
-            boxShadow: '0px 0px 0px 0px rgba(0, 0, 0, 0.02)',
-          },
-          {
-            boxShadow: '0px -49px 49px 0px rgba(0, 0, 0, 0.02)',
-          },
-        );
     });
   }
 
