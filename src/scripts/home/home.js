@@ -1,7 +1,10 @@
 import '../../styles/home.css';
 import SplitType from 'split-type';
 import gsap from 'gsap';
+import { CustomEase } from 'gsap/CustomEase';
 import { deviceDetection } from '../global/deviceDetect';
+
+gsap.registerPlugin(CustomEase);
 
 export default function () {
   return new HomeScripts();
@@ -9,6 +12,7 @@ export default function () {
 
 class HomeScripts {
   constructor() {
+    this.initHeroMarquee();
     this.initTrackTextAnimation();
     this.initStackingCards();
     this.initInfiniteLogoLoop();
@@ -18,7 +22,9 @@ class HomeScripts {
   }
 
   initHeroAnimation() {
-    const loadingDuration = sessionStorage.getItem('visited') !== null ? 2.5 : 4.75;
+    const SKIP_ANIM = import.meta.env.DEV; // toggle: set to false to preview full loading delay in dev
+
+    const loadingDuration = SKIP_ANIM ? 0 : sessionStorage.getItem('visited') !== null ? 2.5 : 4.75;
     const rows = [
       '.custom_text_wrap_one',
       '.custom_text_wrap_two',
@@ -51,7 +57,7 @@ class HomeScripts {
         duration: 2
       }
     });
-  
+
     rows.forEach((row, index) => {
         tl.to(row.container, {
           clipPath: 'polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)',
@@ -88,6 +94,69 @@ class HomeScripts {
     }, '-=2')
   }
   
+  initHeroMarquee() {
+    const wrap = document.querySelector('.updated_hero_track_wrap');
+    if (!wrap) return;
+    if (wrap.querySelector('.updated_hero_track_inner')) return;
+
+    // Collect only direct .updated_hero_creator_card_wrap children
+    const items = Array.from(
+      wrap.querySelectorAll(':scope > .updated_hero_creator_card_wrap')
+    );
+    if (!items.length) return;
+
+    // Create inner track element
+    const track = document.createElement('div');
+    track.classList.add('updated_hero_track_inner');
+
+    // Move originals into track
+    items.forEach(item => track.appendChild(item));
+
+    // Clone originals for seamless loop
+    items.forEach(item => {
+      const clone = item.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      track.appendChild(clone);
+    });
+
+    wrap.appendChild(track);
+
+    // Impulse ease (approximates impulse:standard:v1 intensity:50)
+    CustomEase.create('impulse', 'M0,0 C0.09,0 0.18,1.08 0.48,1.04 C0.7,1.01 1,1 1,1');
+
+    const totalOriginal = items.length;
+    let currentIndex = 0;
+    const STEP_INTERVAL = 2;     // seconds between step starts
+    const ANIM_DURATION = 0.85;  // seconds for each tween
+
+    const getStepSize = () => {
+      const card = track.querySelector('.updated_hero_creator_card_wrap');
+      const gap = parseFloat(getComputedStyle(track).gap) || 0;
+      return card.offsetWidth + gap;
+    };
+
+    const step = () => {
+      currentIndex++;
+      const stepSize = getStepSize();
+      const targetX = -(currentIndex * stepSize);
+
+      gsap.to(track, {
+        x: targetX,
+        duration: ANIM_DURATION,
+        ease: 'impulse',
+        onComplete: () => {
+          if (currentIndex >= totalOriginal) {
+            gsap.set(track, { x: 0 });
+            currentIndex = 0;
+          }
+          gsap.delayedCall(STEP_INTERVAL - ANIM_DURATION, step);
+        },
+      });
+    };
+
+    gsap.delayedCall(STEP_INTERVAL, step);
+  }
+
   initTrackTextAnimation() {
     const stackingTextSection = document.querySelector('.stacking_text_wrap');
     const stackingCardParent = stackingTextSection.querySelector('.stacking_text_contain_inner');
@@ -144,7 +213,7 @@ class HomeScripts {
     const cards = document.querySelectorAll('.stacking-card');
     if (!cards.length) return;
 
-    cards.forEach((card, index) => {
+    cards.forEach((card) => {
       let prev = card.previousElementSibling;
       if (!prev) return;
 

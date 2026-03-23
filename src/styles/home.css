@@ -25,3 +25,23 @@ html.w-editor [text-split] {
   display: inline !important;
   position: relative !important;
 }
+
+/* Hero marquee */
+.updated_hero_track_wrap {
+  container-type: size;
+  overflow: hidden;
+}
+
+.updated_hero_track_inner {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  gap: var(--site--gutter, 1rem);
+  will-change: transform;
+}
+
+.updated_hero_track_inner > .updated_hero_creator_card_wrap {
+  height: 100cqh;
+  aspect-ratio: 9 / 16;
+  flex-shrink: 0;
+}
