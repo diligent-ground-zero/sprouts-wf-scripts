@@ -12,10 +12,11 @@ export default function () {
 
 class HomeScripts {
   constructor() {
-    const SKIP_ANIM = import.meta.env.DEV; // toggle: set to false to preview full loading delay in dev
+    const SKIP_ANIM = false// toggle: set to false to preview full loading delay in dev
     this.loadingDuration = SKIP_ANIM ? 0 : sessionStorage.getItem('visited') !== null ? 2.5 : 4.75;
 
     this.initHeroMarquee();
+    this.initHeroBgVideo();
     this.initTrackTextAnimation();
     this.initStackingCards();
     this.initInfiniteLogoLoop();
@@ -95,6 +96,74 @@ class HomeScripts {
     }, '-=2')
   }
   
+  initHeroBgVideo() {
+    if (!deviceDetection.isDesktop) return;
+    const container = document.querySelector('.updated_hero_bg_video');
+    if (!container) return;
+
+    const src = 'https://sprouts.bucket.diligent-studios.com/general/bg_sprouts.mp4';
+    const CROSSFADE = 3; // seconds before end to begin crossfade
+
+    const makeVideo = () => {
+      const v = document.createElement('video');
+      v.muted = true;
+      v.playsInline = true;
+      v.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+      const s = document.createElement('source');
+      s.src = src;
+      s.type = 'video/mp4';
+      v.appendChild(s);
+      container.appendChild(v);
+      v.load();
+      return v;
+    };
+
+    const videoA = makeVideo();
+    const videoB = makeVideo();
+
+    gsap.set([videoA, videoB], { opacity: 0 });
+
+    let current = videoA;
+    let next = videoB;
+    let busy = false;
+
+    const crossfade = () => {
+      if (busy) return;
+      busy = true;
+      next.currentTime = 0;
+      next.play();
+      gsap.to(next, { opacity: 1, duration: CROSSFADE, ease: 'power2.inOut' });
+      gsap.to(current, {
+        opacity: 0,
+        duration: CROSSFADE,
+        ease: 'power2.inOut',
+        onComplete: () => {
+          current.pause();
+          [current, next] = [next, current];
+          busy = false;
+        },
+      });
+    };
+
+    [videoA, videoB].forEach(v => {
+      v.addEventListener('timeupdate', () => {
+        if (v !== current || !v.duration) return;
+        if (v.currentTime >= v.duration - CROSSFADE) crossfade();
+      });
+    });
+
+    gsap.set(container, { opacity: 0 });
+    gsap.delayedCall(this.marqueeStartDelay - 2.2, () => {
+      videoA.play();
+      gsap.set(videoA, { opacity: 1});
+      gsap.to(container, {
+        opacity: 1,
+        duration: 2,
+        ease: 'power2.out'
+      });
+    });
+  }
+
   initHeroMarquee() {
     const wrap = document.querySelector('.updated_hero_track_wrap');
     if (!wrap) return;
@@ -113,7 +182,6 @@ class HomeScripts {
     // Move originals into track
     items.forEach(item => track.appendChild(item));
 
-    // Clone originals for seamless loop
     items.forEach(item => {
       const clone = item.cloneNode(true);
       clone.setAttribute('aria-hidden', 'true');
@@ -126,20 +194,78 @@ class HomeScripts {
     CustomEase.create('impulse', 'M0,0 C0.09,0 0.18,1.08 0.48,1.04 C0.7,1.01 1,1 1,1');
 
     const totalOriginal = items.length;
-    let currentIndex = 0;
-    const STEP_INTERVAL = 2;     // seconds between step starts
-    const ANIM_DURATION = 0.85;  // seconds for each tween
-
-    const getStepSize = () => {
-      const card = track.querySelector('.updated_hero_creator_card_wrap');
-      const gap = parseFloat(getComputedStyle(track).gap) || 0;
-      return card.offsetWidth + gap;
+    const STEP_INTERVAL = 3;
+    const ANIM_DURATION = 1.2;
+    const SCALE_FULL = 1;
+    const SCALE_SMALL = deviceDetection.isDesktop ? 0.75 : 1;
+    const FEATURED_SLOT = 1; // 0 = leftmost, 1 = second from left, etc.
+    const ACCENT_CLASS = 'is-accent'; // applied to the 2 cards right of featured
+    const START_OFFSET = 0; // start N steps into the sequence to hide right-edge whitespace
+    const getTrackOffset = () => {
+      if (window.innerWidth >= 1720) return 125;
+      else if (window.innerWidth >= 1440) return 50;
+      else if (window.innerWidth >= 1280) return -50;
+      else if (window.innerWidth >= 991) return -150;
+      else return 0;
     };
+
+    let currentIndex = START_OFFSET;
+
+    // All cards (originals + clones) needed for scale tracking
+    const allCards = Array.from(track.querySelectorAll('.updated_hero_creator_card_wrap'));
+    const clones = allCards.slice(totalOriginal);
+
+    const setAccentCards = (baseIndex) => {
+      allCards.forEach(c => c.classList.remove(ACCENT_CLASS));
+      allCards[baseIndex + 1]?.classList.add(ACCENT_CLASS);
+      allCards[baseIndex + 2]?.classList.add(ACCENT_CLASS);
+    };
+
+    // Initial scale based on START_OFFSET position
+    const initialFeatured = totalOriginal - START_OFFSET + FEATURED_SLOT;
+    if (deviceDetection.isDesktop) {
+      gsap.set(allCards, { scale: SCALE_SMALL, transformOrigin: 'bottom center' });
+      gsap.set(allCards[initialFeatured], { scale: SCALE_FULL });
+    }
+    setAccentCards(initialFeatured);
+
+    // Hide clones for appear animation (originals at START_OFFSET positions are already in viewport)
+    gsap.set(clones, { opacity: 0, y: 40 });
+
+    const measureStepSize = () => {
+      const card = track.querySelector('.updated_hero_creator_card_wrap');
+      // getComputedStyle reads CSS layout values — unaffected by GSAP scale transforms
+      const cardWidth = parseFloat(getComputedStyle(card).width);
+      const gap = parseFloat(getComputedStyle(track).gap) || 0;
+      return cardWidth + gap;
+    };
+
+    // Capture once — must stay consistent across steps and the seamless reset
+    let stepSize = measureStepSize();
+
+    // Start START_OFFSET steps into the sequence to push right-edge whitespace off screen
+    gsap.set(track, { x: -(totalOriginal * stepSize) + (START_OFFSET * stepSize) + getTrackOffset() });
+    gsap.set(wrap, { opacity: 1 });
+
+    // On resize, recalculate and snap track to the correct position for currentIndex
+    new ResizeObserver(() => {
+      stepSize = measureStepSize();
+      gsap.set(track, { x: -(totalOriginal * stepSize) + (currentIndex * stepSize) + getTrackOffset() });
+    }).observe(wrap);
 
     const step = () => {
       currentIndex++;
-      const stepSize = getStepSize();
-      const targetX = -(currentIndex * stepSize);
+      const targetX = -(totalOriginal * stepSize) + (currentIndex * stepSize) + getTrackOffset();
+
+      // Incoming card enters the featured slot; outgoing card leaves it
+      const featuredBase = totalOriginal - currentIndex + FEATURED_SLOT;
+      const incoming = allCards[featuredBase];
+      const outgoing = allCards[featuredBase + 1];
+      if (deviceDetection.isDesktop) {
+        gsap.to(incoming, { scale: SCALE_FULL, duration: ANIM_DURATION, ease: 'power2.out' });
+        gsap.to(outgoing, { scale: SCALE_SMALL, duration: ANIM_DURATION, ease: 'power2.out' });
+      }
+      setAccentCards(featuredBase);
 
       gsap.to(track, {
         x: targetX,
@@ -147,7 +273,13 @@ class HomeScripts {
         ease: 'impulse',
         onComplete: () => {
           if (currentIndex >= totalOriginal) {
-            gsap.set(track, { x: 0 });
+            gsap.set(track, { x: -(totalOriginal * stepSize) + getTrackOffset() });
+            // Seamless reset: hand featured state back to initial clone slot
+            if (deviceDetection.isDesktop) {
+              gsap.set(allCards[FEATURED_SLOT], { scale: SCALE_SMALL });
+              gsap.set(allCards[totalOriginal + FEATURED_SLOT], { scale: SCALE_FULL });
+            }
+            setAccentCards(totalOriginal + FEATURED_SLOT);
             currentIndex = 0;
           }
           gsap.delayedCall(STEP_INTERVAL - ANIM_DURATION, step);
@@ -155,17 +287,47 @@ class HomeScripts {
       });
     };
 
-    // Appear animation — synced with preloader via loadingDuration
-    gsap.set(items, { opacity: 0, y: 40 });
-    gsap.to(items, {
+    // Intro sequence → heading rows → bottom wrap → marquee starts
+    const headingRows = document.querySelectorAll('.updated_hero_heading_text_inner_wrap');
+    const bottomItems = document.querySelectorAll('.update_hero_bottom_wrap > *');
+
+    gsap.set(headingRows, { clipPath: 'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)', opacity: 0, y: -40});
+    gsap.set(bottomItems, { opacity: 0, y: 20 });
+
+    const introTl = gsap.timeline({ delay: this.loadingDuration });
+
+    // Each heading row wipes in from bottom to top
+    introTl.to(headingRows, {
+      clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+      transformOrigin: 'bottom center',
+      scale:1,
       opacity: 1,
       y: 0,
-      duration: 0.9,
-      ease: 'power3.out',
-      stagger: 0.07,
-      delay: this.loadingDuration,
-      onComplete: () => gsap.delayedCall(STEP_INTERVAL, step),
+      duration: 1.4,
+      ease: 'power4.inOut',
+      stagger: 0.8,
     });
+
+    // Bottom wrap items stagger in
+    introTl.to(bottomItems, {
+      opacity: 1,
+      y: 0,
+      duration: 0.6,
+      ease: 'power2.out',
+      stagger: 0.12,
+    }, '+=0.1');
+
+    // Marquee cards appear, then stepping begins
+    introTl.to(clones, {
+      opacity: 1,
+      y: 0,
+      duration: 0.4,
+      ease: 'power3.out',
+      stagger: 0.1,
+      onComplete: () => gsap.delayedCall(STEP_INTERVAL, step),
+    }, '-=1');
+
+    this.marqueeStartDelay = this.loadingDuration + introTl.duration() + STEP_INTERVAL;
   }
 
   initTrackTextAnimation() {

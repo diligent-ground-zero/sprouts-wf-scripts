@@ -6,6 +6,10 @@ html.w-editor [text-split] {
   opacity: 1;
 }
 
+.updated_hero_heading_text_inner_wrap {                            
+  font-size: clamp(2rem, 14vw, 6rem);                              
+}
+
 .heading-3 {
   display: block !important;
   line-height: normal !important;
@@ -26,10 +30,16 @@ html.w-editor [text-split] {
   position: relative !important;
 }
 
+.updated_hero_wrap {
+  overflow: hidden;
+}
 /* Hero marquee */
 .updated_hero_track_wrap {
+  opacity: 0;
   container-type: size;
-  overflow: hidden;
+  /* Cards fade in from transparent (left, behind text) to fully visible (right) */
+  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
 }
 
 .updated_hero_track_inner {
@@ -42,6 +52,46 @@ html.w-editor [text-split] {
 
 .updated_hero_track_inner > .updated_hero_creator_card_wrap {
   height: 100cqh;
-  aspect-ratio: 9 / 16;
+  aspect-ratio: 9 / 14;
   flex-shrink: 0;
+  align-self: flex-end;
+  transition: opacity 0.75s ease;
+}
+
+.updated_hero_track_inner > .updated_hero_creator_card_wrap .updated_hero_creator_card_video {
+  border-radius: 50px;
+}
+
+.updated_hero_bg_video {
+  padding-top: 50px;
+}
+
+.updated_hero_bg_video::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.3'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+}
+
+@media (min-width: 991px) {
+  /* nav {
+    transition: background 1.5s ease;
+  }
+  nav.is-set {
+    background: linear-gradient(92deg, #d9e1e1, #e0e0e0);
+  } */
+  .updated_hero_track_inner > .updated_hero_creator_card_wrap.is-accent {
+    opacity: 0 !important;
+  }
+  .updated_hero_heading_text_inner_wrap {    
+    font-size: clamp(2rem, 12vw, 7rem);                                                   
+  }
+}
+
+@media (min-width: 1280px) {
+  .updated_hero_heading_text_inner_wrap {                            
+    font-size: clamp(2rem, 9vw, 10rem);                          
+  }
 }
