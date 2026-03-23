@@ -153,7 +153,7 @@ class HomeScripts {
     });
 
     gsap.set(container, { opacity: 0 });
-    gsap.delayedCall(this.marqueeStartDelay - 2.2, () => {
+    gsap.delayedCall(this.marqueeStartDelay - 4, () => {
       videoA.play();
       gsap.set(videoA, { opacity: 1});
       gsap.to(container, {
@@ -202,12 +202,7 @@ class HomeScripts {
     const ACCENT_CLASS = 'is-accent'; // applied to the 2 cards right of featured
     const START_OFFSET = 0; // start N steps into the sequence to hide right-edge whitespace
     const getTrackOffset = () => {
-      if (window.innerWidth >= 1920) return 150;
-      else if (window.innerWidth >= 1728) return 90;
-      else if (window.innerWidth >= 1440) return 50;
-      else if (window.innerWidth >= 1280) return -50;
-      else if (window.innerWidth >= 991) return -150;
-      else return 0;
+      return 0;
     };
 
     let currentIndex = START_OFFSET;
