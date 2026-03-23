@@ -12,6 +12,9 @@ export default function () {
 
 class HomeScripts {
   constructor() {
+    const SKIP_ANIM = import.meta.env.DEV; // toggle: set to false to preview full loading delay in dev
+    this.loadingDuration = SKIP_ANIM ? 0 : sessionStorage.getItem('visited') !== null ? 2.5 : 4.75;
+
     this.initHeroMarquee();
     this.initTrackTextAnimation();
     this.initStackingCards();
@@ -22,9 +25,7 @@ class HomeScripts {
   }
 
   initHeroAnimation() {
-    const SKIP_ANIM = import.meta.env.DEV; // toggle: set to false to preview full loading delay in dev
-
-    const loadingDuration = SKIP_ANIM ? 0 : sessionStorage.getItem('visited') !== null ? 2.5 : 4.75;
+    const loadingDuration = this.loadingDuration;
     const rows = [
       '.custom_text_wrap_one',
       '.custom_text_wrap_two',
@@ -154,7 +155,17 @@ class HomeScripts {
       });
     };
 
-    gsap.delayedCall(STEP_INTERVAL, step);
+    // Appear animation — synced with preloader via loadingDuration
+    gsap.set(items, { opacity: 0, y: 40 });
+    gsap.to(items, {
+      opacity: 1,
+      y: 0,
+      duration: 0.9,
+      ease: 'power3.out',
+      stagger: 0.07,
+      delay: this.loadingDuration,
+      onComplete: () => gsap.delayedCall(STEP_INTERVAL, step),
+    });
   }
 
   initTrackTextAnimation() {
