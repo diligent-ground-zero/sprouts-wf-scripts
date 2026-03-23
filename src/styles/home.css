@@ -33,14 +33,6 @@ html.w-editor [text-split] {
 .updated_hero_wrap {
   overflow: hidden;
 }
-/* Hero marquee */
-.updated_hero_track_wrap {
-  opacity: 0;
-  container-type: size;
-  /* Cards fade in from transparent (left, behind text) to fully visible (right) */
-  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
-  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
-}
 
 .updated_hero_track_inner {
   display: flex;
@@ -48,6 +40,7 @@ html.w-editor [text-split] {
   height: 100%;
   gap: var(--site--gutter, 1rem);
   will-change: transform;
+  container-type: size;
 }
 
 .updated_hero_track_inner > .updated_hero_creator_card_wrap {
@@ -76,12 +69,14 @@ html.w-editor [text-split] {
 }
 
 @media (min-width: 991px) {
-  /* nav {
-    transition: background 1.5s ease;
+  /* Hero marquee */
+  .updated_hero_track_wrap {
+    opacity: 0;
+    container-type: size;
+    /* Cards fade in from transparent (left, behind text) to fully visible (right) */
+    -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
   }
-  nav.is-set {
-    background: linear-gradient(92deg, #d9e1e1, #e0e0e0);
-  } */
   .updated_hero_track_inner > .updated_hero_creator_card_wrap.is-accent {
     opacity: 0 !important;
   }
@@ -92,6 +87,40 @@ html.w-editor [text-split] {
 
 @media (min-width: 1280px) {
   .updated_hero_heading_text_inner_wrap {                            
-    font-size: clamp(2rem, 9vw, 10rem);                          
+    font-size: clamp(2rem, 9vw, 9.5rem);                          
+  }
+}
+
+@media (min-width: 1440px) {
+  .updated_hero_contain {                            
+    max-height: clamp(700px, 70vh, 1100px);                     
+  }
+}
+
+@media (min-width: 1728px) {
+  .updated_hero_contain {                            
+    max-height: clamp(700px, 90vh, 1280px);               
+  }
+}
+
+@media (min-width: 1920px) {
+  .updated_hero_contain {                            
+    max-height: clamp(700px, 92vh, 1280px);                  
+  }
+
+  .updated_hero_contain .updated_hero_heading {
+    grid-row: 2 / 5;
+  }
+
+  .updated_hero_contain .updated_hero_heading .updated_hero_heading_text_inner_wrap {                            
+    font-size: clamp(2rem, 12vw, 13rem);                        
+  }
+
+  .updated_hero_contain .updated_hero_track_wrap {
+    grid-row: 2 / 5;
+  }
+
+    .updated_hero_contain .update_hero_bottom_wrap {
+    grid-row: 5 / 7;
   }
 }

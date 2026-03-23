@@ -194,15 +194,16 @@ class HomeScripts {
     CustomEase.create('impulse', 'M0,0 C0.09,0 0.18,1.08 0.48,1.04 C0.7,1.01 1,1 1,1');
 
     const totalOriginal = items.length;
-    const STEP_INTERVAL = 3;
-    const ANIM_DURATION = 1.2;
+    const STEP_INTERVAL = 4; // time between steps (must be > ANIM_DURATION for seamless effect)
+    const ANIM_DURATION = 2;
     const SCALE_FULL = 1;
     const SCALE_SMALL = deviceDetection.isDesktop ? 0.75 : 1;
     const FEATURED_SLOT = 1; // 0 = leftmost, 1 = second from left, etc.
     const ACCENT_CLASS = 'is-accent'; // applied to the 2 cards right of featured
     const START_OFFSET = 0; // start N steps into the sequence to hide right-edge whitespace
     const getTrackOffset = () => {
-      if (window.innerWidth >= 1720) return 125;
+      if (window.innerWidth >= 1920) return 150;
+      else if (window.innerWidth >= 1728) return 90;
       else if (window.innerWidth >= 1440) return 50;
       else if (window.innerWidth >= 1280) return -50;
       else if (window.innerWidth >= 991) return -150;
@@ -291,21 +292,20 @@ class HomeScripts {
     const headingRows = document.querySelectorAll('.updated_hero_heading_text_inner_wrap');
     const bottomItems = document.querySelectorAll('.update_hero_bottom_wrap > *');
 
-    gsap.set(headingRows, { clipPath: 'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)', opacity: 0, y: -40});
+    gsap.set(headingRows, { opacity: 0, y: -40});
     gsap.set(bottomItems, { opacity: 0, y: 20 });
 
     const introTl = gsap.timeline({ delay: this.loadingDuration });
 
     // Each heading row wipes in from bottom to top
     introTl.to(headingRows, {
-      clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
       transformOrigin: 'bottom center',
       scale:1,
       opacity: 1,
       y: 0,
-      duration: 1.4,
+      duration: 1,
       ease: 'power4.inOut',
-      stagger: 0.8,
+      stagger: 0.6,
     });
 
     // Bottom wrap items stagger in
@@ -325,7 +325,7 @@ class HomeScripts {
       ease: 'power3.out',
       stagger: 0.1,
       onComplete: () => gsap.delayedCall(STEP_INTERVAL, step),
-    }, '-=1');
+    }, '-=1.2');
 
     this.marqueeStartDelay = this.loadingDuration + introTl.duration() + STEP_INTERVAL;
   }
