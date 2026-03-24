@@ -311,7 +311,7 @@ class HomeScripts {
       ease: 'power2.out',
       stagger: 0.12,
       onComplete: () => {
-        if (!deviceDetection.isDesktop) return;
+        if (window.innerWidth < 992) return;
         document.querySelector('nav')?.classList.add('is-complete')
       },
     }, '+=0.1');
