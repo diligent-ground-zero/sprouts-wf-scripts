@@ -38,6 +38,7 @@ class HomeScripts {
     }));
 
     const ctaRow = document.querySelector('.hero_heading_wrap .custom_text_wrap:last-child');
+    if (!ctaRow) return;
     const arrow = ctaRow.querySelector('.custom_text_container_arrow_icon');
     const navRow = document.querySelector('nav');
   
@@ -101,7 +102,8 @@ class HomeScripts {
     const container = document.querySelector('.updated_hero_bg_video');
     if (!container) return;
 
-    const src = 'https://sprouts.bucket.diligent-studios.com/general/bg_sprouts.mp4';
+    const srcWebm = 'https://sprouts.bucket.diligent-studios.com/general/bg_sprouts.webm';
+    const srcMp4 = 'https://sprouts.bucket.diligent-studios.com/general/bg_sprouts.mp4';
     const CROSSFADE = 3; // seconds before end to begin crossfade
 
     const makeVideo = () => {
@@ -112,10 +114,14 @@ class HomeScripts {
       v.setAttribute('playsinline', '');
       v.poster = 'https://cdn.prod.website-files.com/6730663af40f98fed8d63f14/69c1e75a9a144d4a4d9d81dc_video_poster.webp';
       v.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
-      const s = document.createElement('source');
-      s.src = src;
-      s.type = 'video/mp4';
-      v.appendChild(s);
+      const sWebm = document.createElement('source');
+      sWebm.src = srcWebm;
+      sWebm.type = 'video/webm';
+      v.appendChild(sWebm);
+      const sMp4 = document.createElement('source');
+      sMp4.src = srcMp4;
+      sMp4.type = 'video/mp4';
+      v.appendChild(sMp4);
       container.appendChild(v);
       v.load();
       return v;
@@ -334,6 +340,7 @@ class HomeScripts {
 
   initTrackTextAnimation() {
     const stackingTextSection = document.querySelector('.stacking_text_wrap');
+    if (!stackingTextSection) return;
     const stackingCardParent = stackingTextSection.querySelector('.stacking_text_contain_inner');
     const stackingCardTextWrapper = stackingCardParent.querySelector('.stacking_text_contain_inner_wrapper');
     const stackingCardTextWrapperChildren = Array.from(stackingCardTextWrapper.children);
@@ -417,6 +424,7 @@ class HomeScripts {
 
   initInfiniteLogoLoop() {
     const scroller = document.querySelector('.logo_scroll')
+    if (!scroller) return;
     const scrollerInner = scroller.querySelector('.logo_scroll_inner')
     const scrollerContent = Array.from(scrollerInner.children);
     scrollerContent.forEach((item) => {
