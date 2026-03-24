@@ -108,6 +108,9 @@ class HomeScripts {
       const v = document.createElement('video');
       v.muted = true;
       v.playsInline = true;
+      v.setAttribute('muted', '');
+      v.setAttribute('playsinline', '');
+      v.poster = 'https://cdn.prod.website-files.com/6730663af40f98fed8d63f14/69c1e75a9a144d4a4d9d81dc_video_poster.webp';
       v.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
       const s = document.createElement('source');
       s.src = src;
