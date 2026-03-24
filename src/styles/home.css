@@ -81,7 +81,7 @@ html.w-editor [text-split] {
     background: linear-gradient(180deg, #d5d8de, #d9dcd6);
   }
   .updated_hero_contain {
-    grid-template-columns: clamp(420px, 42vw ,750px) minmax(0,1fr) minmax(0,1fr);
+    grid-template-columns: clamp(460px,36vw,480px) minmax(0,1fr) minmax(0,1fr);
   }
   /* Hero marquee */
   .updated_hero_heading {
@@ -123,7 +123,7 @@ html.w-editor [text-split] {
 @media (min-width: 1440px) {
   .updated_hero_contain {       
     height: 1000px;
-    grid-template-columns: clamp(520px, 40vw ,530px) minmax(0,1fr) minmax(0,1fr);                         
+    grid-template-columns: clamp(520px,40vw,580px) minmax(0,1fr) minmax(0,1fr);                        
   }
 }
 
