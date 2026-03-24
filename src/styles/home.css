@@ -52,7 +52,7 @@ html.w-editor [text-split] {
 }
 
 .updated_hero_track_inner > .updated_hero_creator_card_wrap .updated_hero_creator_card_video {
-  border-radius: 50px;
+  border-radius: 35px;
 }
 
 .updated_hero_bg_video {
@@ -108,6 +108,9 @@ html.w-editor [text-split] {
 }
 
 @media (min-width: 1280px) {
+  .updated_hero_track_inner > .updated_hero_creator_card_wrap .updated_hero_creator_card_video {
+    border-radius: 45px;
+  }
   .updated_hero_contain {
     height: 980px;
     grid-template-columns: clamp(500px, 38vw ,540px) minmax(0,1fr) minmax(0,1fr);
