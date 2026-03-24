@@ -159,7 +159,7 @@ class HomeScripts {
       gsap.to(container, {
         opacity: 1,
         duration: 2,
-        ease: 'power2.out'
+        ease: 'power2.out',
       });
     });
   }
@@ -310,6 +310,10 @@ class HomeScripts {
       duration: 0.6,
       ease: 'power2.out',
       stagger: 0.12,
+      onComplete: () => {
+        if (!deviceDetection.isDesktop) return;
+        document.querySelector('nav')?.classList.add('is-complete')
+      },
     }, '+=0.1');
 
     // Marquee cards appear, then stepping begins

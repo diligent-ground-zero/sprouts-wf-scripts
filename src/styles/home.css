@@ -69,7 +69,17 @@ html.w-editor [text-split] {
 }
 
 @media (min-width: 991px) {
-
+  nav.is-complete::after{
+    content: '';
+    height: 50px;
+    position: absolute;
+    filter: blur(15px);
+    bottom: 0;
+    left: 0;
+    right: 0;
+    bottom: -19px;
+    background: linear-gradient(180deg, #d5d8de, #d9dcd6);
+  }
   .updated_hero_contain {
     grid-template-columns: clamp(420px, 42vw ,750px) minmax(0,1fr) minmax(0,1fr);
   }
@@ -117,7 +127,7 @@ html.w-editor [text-split] {
 @media (min-width: 1728px) {
   .updated_hero_contain {     
     height: 980px;      
-    grid-template-columns: clamp(500px, 35vw ,580px) minmax(0,1fr) minmax(0,1fr);                         
+    grid-template-columns: clamp(500px, 35vw ,570px) minmax(0,1fr) minmax(0,1fr);                         
   }
    .updated_hero_heading_text_inner_wrap {                            
     font-size: clamp(2rem, 50cqw, 10.5rem);                          
